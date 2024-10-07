@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoard {
-	private Set<TestBoardCell> target;
+	private Set<TestBoardCell> targets;
 	private TestBoardCell[][] grid;
 	
 	public TestBoard() {
-		this.target = new HashSet<>();
+		this.targets = new HashSet<>();
 		grid = new TestBoardCell[4][4];
 		for (int row = 0; row < 4; row++) {
 			for (int col = 0; col < 4; col++) {
@@ -26,6 +26,6 @@ public class TestBoard {
 	}
 	
 	public Set<TestBoardCell> getTargets(){
-		return target;
+		return targets;
 	}
 }
