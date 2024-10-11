@@ -10,6 +10,8 @@ public class TestBoardCell {
 	private boolean room;
 	private boolean occupied;
 	
+	final static int COLS = 4;
+	final static int ROWS = 4;
 	
 	public TestBoardCell(int row, int col) {
 		this.row = row;
@@ -23,7 +25,7 @@ public class TestBoardCell {
 		adjList.add(cell);
 	}
 	
-	public Set<TestBoardCell> getAdjList(){
+	public Set<TestBoardCell> getAdjList(){	
 		return adjList;
 	}
 	
