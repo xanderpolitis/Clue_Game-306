@@ -17,33 +17,23 @@ public class TestBoard {
 		grid = new TestBoardCell[ROWS][COLS];
 		for (int row = 0; row < ROWS; row++) {
 			for (int col = 0; col < COLS; col++) {
-				
 				grid[row][col] = new TestBoardCell(row, col);
-				
 			}
 		}
+		
 		for (int row = 0; row < ROWS; row++) {
 			for (int col = 0; col < COLS; col++) {
-				if(row != 0) {
-					if(!grid[row-1][col].getOccupied() && grid[row-1][col].room()) {
+				if(row > 0) {
 						grid[row][col].addAdjacency(grid[row-1][col]);
-					}
 				}
-				if(col != 0) {
-					if(!grid[row][col-1].getOccupied() && grid[row][col-1].room()) {
+				if(col > 0) {
 						grid[row][col].addAdjacency(grid[row][col-1]);
-					}
 				}
-				if(row+1 == ROWS) {
-					if(!grid[row+1][col].getOccupied() && grid[row+1][col].room()) {
+				if(row+1 < ROWS) {
 						grid[row][col].addAdjacency(grid[row+1][col]);
-					}
-					
 				}
-				if(col+1 == COLS) {
-					if(!grid[row][col+1].getOccupied() && grid[row][col+1].room()) {
+				if(col+1 < COLS) {
 						grid[row][col].addAdjacency(grid[row][col+1]);
-					}
 				}
 			}
 		}
@@ -51,28 +41,54 @@ public class TestBoard {
 			
 	
 	public void findAllTargets(TestBoardCell startCell, int numSteps) {
-		for (TestBoardCell adjCell:startCell.getAdjList()) {
-			if (visited.contains(adjCell)) {
-				continue;
-			}
-			visited.add(adjCell);
-			if(numSteps == 1) {
-				targets.add(adjCell);
-			}else {
+		
+		if (visited.contains(startCell)) {
+			return;
+		}
+		
+		visited.add(startCell);
+		
+		if(startCell.getOccupied()) {
+			return;
+		}
+		
+		if(numSteps == 0 || startCell.room()) {
+			targets.add(startCell);
+			return;
+		}
+		
+		for (TestBoardCell adjCell : startCell.getAdjList()) {
 				findAllTargets(adjCell, numSteps-1); 
-			}
-			visited.remove(adjCell);
-		}	
+				visited.remove(adjCell);
+		}
+		return;
+		
+		
+		
+//		for (TestBoardCell adjCell : startCell.getAdjList()) {
+//			if(visited.contains(adjCell)) {
+//				continue;
+//			}
+//			visited.add(adjCell);
+//			if(numSteps == 1) {
+//				targets.add(adjCell);
+//			}else {
+//				findAllTargets(adjCell, numSteps-1); 
+//			}
+//			visited.remove(adjCell);
+//		}
 	}
 	
 	
 	public void calcTargets(TestBoardCell startCell, int pathlength) {
-		visited = new HashSet<>();
 		targets = new HashSet<>();
-		
-		visited.add(startCell);
+		visited = new HashSet<>();
+
+		//visited.add(startCell);
 		
 		findAllTargets(startCell, pathlength);
+		
+		return;
 	}
 	
 	public TestBoardCell getCell(int row, int col) {

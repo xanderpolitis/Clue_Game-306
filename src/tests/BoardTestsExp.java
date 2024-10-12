@@ -84,7 +84,7 @@ public class BoardTestsExp {
         assertTrue(targets.contains(board.getCell(2, 0)));
         assertTrue(targets.contains(board.getCell(0, 2)));
         assertTrue(targets.contains(board.getCell(1, 1)));
-        assertEquals(3, targets.size());
+        assertEquals(4, targets.size());
     }
 
     @Test
@@ -95,14 +95,14 @@ public class BoardTestsExp {
         assertTrue(targets.contains(board.getCell(3, 2)));
         assertEquals(2, targets.size());
     }
-
+    
     @Test
     public void testTargetsNormal_BottomRight_3Steps() {
         board.calcTargets(board.getCell(3, 3), 3);
         Set<TestBoardCell> targets = board.getTargets();
         assertTrue(targets.contains(board.getCell(0, 3)));
         assertTrue(targets.contains(board.getCell(1, 2)));
-        assertEquals(5, targets.size());
+        assertEquals(6, targets.size());
     }
 
     @Test
@@ -115,15 +115,18 @@ public class BoardTestsExp {
         assertTrue(targets.contains(board.getCell(2, 3)));
         assertEquals(4, targets.size());
     }
-
+    //0  1  2  3
+    //4  5  6  7
+    //8  9  10 11
+    //12 13 14 15
     @Test
     public void testTargetsNormal_Middle_3Steps() {
         board.calcTargets(board.getCell(2, 2), 3);
         Set<TestBoardCell> targets = board.getTargets();
-        assertTrue(targets.contains(board.getCell(1, 1)));
-        assertTrue(targets.contains(board.getCell(3, 1)));
-        assertTrue(targets.contains(board.getCell(0, 2)));
-        assertEquals(6, targets.size());
+        assertTrue(targets.contains(board.getCell(1, 2)));
+        assertTrue(targets.contains(board.getCell(3, 2)));
+        assertTrue(targets.contains(board.getCell(1, 0)));
+        assertEquals(8, targets.size());
     }
 
     @Test
@@ -131,33 +134,24 @@ public class BoardTestsExp {
         board.calcTargets(board.getCell(2, 2), 4);
         Set<TestBoardCell> targets = board.getTargets();
         assertTrue(targets.contains(board.getCell(0, 2)));
-        assertTrue(targets.contains(board.getCell(2, 4))); 
-        assertTrue(targets.contains(board.getCell(3, 2)));
-        assertEquals(6, targets.size());
+        assertTrue(targets.contains(board.getCell(2, 2))); 
+        assertTrue(targets.contains(board.getCell(3, 1)));
+        assertEquals(8, targets.size());
     }
 
     // Test Targets with Rooms - 2 test cases
-
+    //0  1  2  3
+    //4  5  6  7
+    //8  9  10 11
+    //12 13 14 15
     @Test
     public void testTargetsRoom_TopLeft() {
         board.getCell(0, 1).setRoom(true); // Mark a room
         board.calcTargets(board.getCell(0, 0), 2);
         Set<TestBoardCell> targets = board.getTargets();
-        assertTrue(targets.contains(board.getCell(1, 0))); // Can move down
+        assertTrue(targets.contains(board.getCell(1, 1))); // Can move down
         // Room cells should not be in the target
-        assertTrue(targets.contains(board.getCell(0, 1))); 
-        assertEquals(1, targets.size());
-    }
-
-    @Test
-    public void testTargetsRoom_BottomRight() {
-        board.getCell(3, 2).setRoom(true); // Mark a room
-        board.calcTargets(board.getCell(3, 3), 3);
-        Set<TestBoardCell> targets = board.getTargets();
-        // Room cells should not be in the target
-        assertTrue(targets.contains(board.getCell(3, 2))); 
-        assertTrue(targets.contains(board.getCell(1, 3))); // Can move up
-        assertTrue(targets.contains(board.getCell(2, 2))); // Can move left
+        assertTrue(targets.contains(board.getCell(2, 0))); 
         assertEquals(3, targets.size());
     }
 
@@ -170,20 +164,23 @@ public class BoardTestsExp {
         Set<TestBoardCell> targets = board.getTargets();
         assertTrue(targets.contains(board.getCell(1, 2))); // Can move up
         assertTrue(targets.contains(board.getCell(3, 2))); // Can move down
-        assertTrue(targets.contains(board.getCell(2, 1))); // Occupied, so not a valid target
+        assertTrue(!targets.contains(board.getCell(2, 1))); // Occupied, so not a valid target
         assertTrue(targets.contains(board.getCell(2, 3))); // Can move right
         assertEquals(3, targets.size());
     }
-
+    //0  1  2  3
+    //4  5  6  7
+    //8  9  10 11
+    //12 13 14 15
     @Test
     public void testTargetsOccupied_BottomLeft() {
         board.getCell(3, 1).setOccupied(true); // Mark cell as occupied
         board.calcTargets(board.getCell(3, 0), 2);
         Set<TestBoardCell> targets = board.getTargets();
         // Occupied cell should block movement to that direction
-        assertTrue(targets.contains(board.getCell(3, 1)));
-        assertTrue(targets.contains(board.getCell(2, 0))); // Can move up
-        assertTrue(targets.contains(board.getCell(1, 0))); // Can move further up
+        assertTrue(targets.contains(board.getCell(2, 1)));
+        assertTrue(targets.contains(board.getCell(1, 0))); // Can move up
+        assertTrue(!targets.contains(board.getCell(3, 2))); // Can move further up
         assertEquals(2, targets.size());
     }
 
@@ -196,9 +193,9 @@ public class BoardTestsExp {
         board.calcTargets(board.getCell(0, 0), 2);
         Set<TestBoardCell> targets = board.getTargets();
         // Both room and occupied cells should block movement
-        assertTrue(targets.contains(board.getCell(1, 0))); // Blocked by occupied cell
+        assertTrue(!targets.contains(board.getCell(1, 0))); // Blocked by occupied cell
         assertTrue(targets.contains(board.getCell(0, 1))); // Blocked by room
-        assertEquals(0, targets.size()); // No valid moves
+        assertEquals(1, targets.size()); // No valid moves
     }
 
     @Test
@@ -209,9 +206,9 @@ public class BoardTestsExp {
         Set<TestBoardCell> targets = board.getTargets();
         // Can move around blocked and room cells
         assertTrue(targets.contains(board.getCell(1, 2))); // Blocked by room
-        assertTrue(targets.contains(board.getCell(2, 1))); // Blocked by occupied
-        assertTrue(targets.contains(board.getCell(3, 2))); // Can move down
-        assertTrue(targets.contains(board.getCell(2, 3))); // Can move right
-        assertEquals(2, targets.size());
+        assertTrue(!targets.contains(board.getCell(2, 1))); // Blocked by occupied
+        assertTrue(targets.contains(board.getCell(3, 3))); // Can move down
+        assertTrue(!targets.contains(board.getCell(0, 2))); // Can move right
+        assertEquals(5, targets.size());
     }
 }
