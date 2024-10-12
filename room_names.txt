@@ -1,0 +1,14 @@
+Xander Politis, Mateo Rivera
+ // Rooms and room cards
+Room, Dungen, D
+Room, Cambers, C
+Room, Rooftop, R
+Room, Food Hall, F
+Room, Hospital wing, 
+Room, Greenhouse, G
+Room, Aroumory, A
+Room, Piano Room, P
+Room, Observatory, O
+// Other spaces on board
+Space, Unused, Z
+Space, Walkway, W
