@@ -6,6 +6,7 @@ import java.util.Map;
 import java.io.*;
 import java.util.Scanner;
 
+import data.*;
 
 
 public class Board {
