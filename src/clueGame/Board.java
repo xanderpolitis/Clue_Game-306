@@ -11,7 +11,9 @@ public class Board {
     private String boardConfigFile;
     private String roomConfigFile;
 
-    private Board() { }
+    private Board() { 
+    	
+    }
 
     public static Board getInstance() {
         return theInstance;
