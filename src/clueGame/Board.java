@@ -1,6 +1,10 @@
 package clueGame;
 
 import java.util.Map;
+import java.io.*;
+import java.util.Scanner;
+
+
 
 public class Board {
     private static Board theInstance = new Board();
@@ -10,7 +14,9 @@ public class Board {
     private Map<Character, Room> rooms;
     private String boardConfigFile;
     private String roomConfigFile;
-
+    
+    
+    
     private Board() { 
     	
     }
@@ -52,12 +58,18 @@ public class Board {
     	return r;
     }
     
-	public void loadSetupConfig() {
-		
+	public void loadSetupConfig() throws BadConfigFormatExeption {
+		try {
+			File txtFile = new File("room_names.txt");
+			Scanner myReader = new Scanner(txtFile);
+			
+		} catch{
+			
+		}
 	}
 
 	public void loadLayoutConfig() {
-		
+		File csvFile = new File("ClueLayout.csv");
 	}
 
 }
