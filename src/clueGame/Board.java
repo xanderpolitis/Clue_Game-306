@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.io.*;
 import java.util.Scanner;
@@ -9,8 +11,8 @@ import java.util.Scanner;
 public class Board {
     private static Board theInstance = new Board();
     private BoardCell[][] grid;
-    private int numRows;
-    private int numColumns;
+    private int numRows = 0;
+    private int numColumns = 0;
     private Map<Character, Room> rooms;
     private String boardConfigFile;
     private String roomConfigFile;
@@ -30,9 +32,10 @@ public class Board {
         this.roomConfigFile = roomFile;
     }
 
-    public void initialize() {
-    	loadSetupConfig();
-    	loadLayoutConfig();
+    public void initialize() throws BadConfigFormatException {
+		loadSetupConfig();
+		loadLayoutConfig();
+		
     }
 
 
@@ -58,20 +61,76 @@ public class Board {
     	return r;
     }
     
-	public void loadSetupConfig() throws BadConfigFormatExeption {
+	public void loadSetupConfig() throws BadConfigFormatException {
 		try {
 			File txtFile = new File("room_names.txt");
-			Scanner myReader = new Scanner(txtFile);
-			
-		} catch{
-			
+			Scanner txtReader = new Scanner(txtFile);
+			String scan;
+			while ((scan = txtReader.nextLine()) != null) {
+				String[] parts = scan.split(", ");
+				if (parts.length < 3) {
+					throw new BadConfigFormatException();
+				}
+				if (parts[0].equals("Room")) {
+					Room room = new Room(parts[1]);
+					rooms.put(parts[2].charAt(0), room);
+				}
+			}
+            
+		} catch(IOException e){
+			throw new BadConfigFormatException();
+		}
+		
+	}
+
+	public void loadLayoutConfig() throws BadConfigFormatException{
+		try {
+			File csvFile = new File("ClueLayout.csv");
+			Scanner csvReader1 = new Scanner(csvFile);
+			while(csvReader1.hasNextLine()){
+            	numRows++;
+            	
+			}
+			numColumns = 1;
+			Scanner csvReader2 = new Scanner(csvFile);
+			while(csvReader2.hasNext()){
+                csvReader2.next();
+				while(csvReader2.hasNext(",")){
+                    csvReader2.next();
+	                numColumns++;
+	            }
+            }
+            
+            
+            Scanner csvReader3 = new Scanner(csvFile);
+            int i=1;
+            int j=0;
+            while(csvReader3.hasNext()){
+                if(csvReader3.hasNext(",")){
+                	csvReader3.next();
+                	i++;
+                }
+                if(csvReader3.hasNext("/n")){
+                    if(i!=numColumns || i==1){
+                        throw new BadConfigFormatException();
+                    }
+                    i=0;
+                	csvReader3.next();
+                	j++;
+                }
+                
+                if(!rooms.containsKey(csvReader3.next())){
+                    throw new BadConfigFormatException();
+                }
+            }
+            if(j != numRows){
+                throw new BadConfigFormatException();
+            }
+            
+		} catch(IOException e){
+			throw new BadConfigFormatException();
 		}
 	}
-
-	public void loadLayoutConfig() {
-		File csvFile = new File("ClueLayout.csv");
-	}
-
 }
 
 

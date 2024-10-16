@@ -1,10 +1,10 @@
-Xander Politis, Mateo Rivera
- // Rooms and room cards
+//Xander Politis, Mateo Rivera
+// Rooms and room cards
 Room, Dungen, D
 Room, Cambers, C
 Room, Rooftop, R
 Room, Food Hall, F
-Room, Hospital wing, 
+Room, HospitalWing, H 
 Room, Greenhouse, G
 Room, Aroumory, A
 Room, Piano Room, P
