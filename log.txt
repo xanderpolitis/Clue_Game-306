@@ -1,3 +1,53 @@
+commit 5bee9dd82479691d0dadf8962fe8cc616dafa06b
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Tue Oct 15 21:07:03 2024 -0600
+
+    tests compile? i think...
+
+commit 0001081410890fe09afd167ce6596b08c3d6a0d2
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Sat Oct 12 01:23:20 2024 -0600
+
+    Mateo some tests failing
+
+commit 4e0e7d864030081df61b5f83f314c13668f275d4
+Merge: 331042c 637a7a0
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 11 22:08:50 2024 -0600
+
+    Merge branch 'main' of https://github.com/mateoriv/Clue-Game
+    merge
+
+commit 331042c252cab7e538e7d857d09b1a8157865436
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 11 22:02:06 2024 -0600
+
+    room_names.txt added
+
+commit 637a7a0147a600bf24542fd0b00adaece1de3e36
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Fri Oct 11 21:57:34 2024 -0600
+
+    Mateo Aded clueinitfiles and ne package
+
+commit 984712d6e737b68602f7f95fedd98ad92c2fd539
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 11 21:20:57 2024 -0600
+
+    updadted TestBoard, upadated test case, all tests pass
+
+commit bfd098972afcef848e61dd9809cf58c21d01662b
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 11 16:34:25 2024 -0600
+
+    updadted TestBoard, does not work right now
+
+commit 686e1e8bbe0f1c95d4fbfd0960fdf5230c4fc289
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Wed Oct 9 13:37:40 2024 -0600
+
+    addedClueLayout.csv
+
 commit 031ce222b5b7b0a5fb276b6ea46d8baf192855c5
 Author: mateoriv <mateorivera@mines.edu>
 Date:   Mon Oct 7 23:34:38 2024 -0600
