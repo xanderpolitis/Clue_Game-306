@@ -40,10 +40,16 @@ public class Board {
         return numColumns;
     }
 
-    public Room getRoom(char c) {
-        return rooms.get(c);
+    public Room getRoom(BoardCell c){
+		Room r = new Room(" ");
+    	return r;
     }
-
+    
+    public Room getRoom(char c){
+		Room r = new Room("c");
+    	return r;
+    }
+    
 	public void loadSetupConfig() {
 		
 	}
