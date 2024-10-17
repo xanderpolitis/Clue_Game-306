@@ -1,13 +1,7 @@
 package clueGame;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 import java.io.*;
-import java.util.Scanner;
-
-import data.*;
-
 
 public class Board {
     private static Board theInstance = new Board();
@@ -131,8 +125,18 @@ public class Board {
 		} catch(IOException e){
 			throw new BadConfigFormatException();
 		}
+	
+	}
+
+	public Set<BoardCell> getAdjList(int i, int j) {
+		return null;
+	}
+
+	public Set<BoardCell> getTargets() {
+		return null;
+	}
+
+	public void calcTargets(int i, int j, int k) {
+		
 	}
 }
-
-
-

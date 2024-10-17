@@ -33,5 +33,13 @@ public class BoardCell {
     	return initial;
     }
 
+	public void setSpecialCell(char charAt) {
+		
+	}
+
+	public void setOccupied(boolean b) {
+		
+	}
+
 }
 
