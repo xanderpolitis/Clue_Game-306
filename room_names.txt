@@ -1,6 +1,6 @@
-//Xander Politis, Mateo Rivera
+// Xander Politis, Mateo Rivera
 // Rooms and room cards
-Room, Dungen, D
+Room, Dungeon, D
 Room, Cambers, C
 Room, Rooftop, R
 Room, Food Hall, F
