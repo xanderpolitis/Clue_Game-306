@@ -12,6 +12,7 @@ public class Board {
 	private int numColumns = 0;
 	
 	private Map<Character, Room> rooms = new HashMap<>();
+	
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private static String datapath = "data/";
