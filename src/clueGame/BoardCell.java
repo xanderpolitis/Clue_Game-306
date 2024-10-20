@@ -8,17 +8,20 @@ import experiment.TestBoardCell;
 public class BoardCell {
     private int row;
     private int col;
-    private char initial;
-    private DoorDirection doorDirection;
+    
+    private char initial = 'X';
+    private DoorDirection doorDirection = DoorDirection.NONE;
+    public char specialCharacter;
+    private char secretPassage;
     
     private Set<TestBoardCell> adjList;
     
     private boolean isRoomCenter;
     private boolean isRoomLabel;
     private boolean occupied;
-    private char secretPassage;
+
     
-    public char specialCharacter;
+ 
 
     
     public BoardCell(int row, int col) {
@@ -45,24 +48,41 @@ public class BoardCell {
         return doorDirection;
     }
 
-    public void setRoomCenter() {
-		this.isRoomCenter = true;
-	}
+    public void setDoorDirection(DoorDirection d) {
+        doorDirection = d;
+    }
+    
     
     public boolean isRoomCenter() {
         return isRoomCenter;
     }
 
+    public void setRoomCenter() {
+ 		this.isRoomCenter = true;
+ 	}
+    
     public boolean isLabel() {
         return isRoomLabel;
+    }
+    
+    public void setLabel() {
+        isRoomLabel = true;
     }
 
     public char getSecretPassage() {
         return secretPassage;
     }
     
-    public char getInitia() {
+    public void setSecretPassage(char c) {
+ 		this.secretPassage = c;
+ 	}
+    
+    public char getInitial() {
     	return initial;
+    }
+    
+    public void setInitial(char c) {
+    	initial = c;
     }
 
 	public void setSpecialCell(char charAt) {

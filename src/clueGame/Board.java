@@ -15,7 +15,9 @@ public class Board {
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private static String datapath = "data/";
-
+	
+	
+	ArrayList<String[]> layout = new ArrayList<>();
 
 	private Board() {}
 
@@ -28,15 +30,51 @@ public class Board {
 		this.roomConfigFile = datapath + roomFile;
 	}
 
+	public void initHelper(BoardCell cell, String letters) {
+		cell.setInitial(letters.charAt(0));
+		if (letters.length() == 2) {
+			switch(letters.charAt(1)) {
+				case '^':
+					cell.setDoorDirection(DoorDirection.UP);
+					break;
+				case '>':
+					cell.setDoorDirection(DoorDirection.RIGHT);
+					break;
+				case '<':
+					cell.setDoorDirection(DoorDirection.LEFT);
+					break;
+				case 'v':
+					cell.setDoorDirection(DoorDirection.DOWN);
+					break;
+				case '*':
+					cell.setRoomCenter();
+					break;
+				case '#':
+					cell.setLabel();
+					break;
+				default:
+					cell.setSecretPassage(letters.charAt(1));
+			}
+		}
+	}
+	
 	public void initialize() throws BadConfigFormatException {
 		loadSetupConfig();
 		loadLayoutConfig();
-
+		
+		grid = new BoardCell[numColumns][numRows];
+		
+		for(int i=0; i < numColumns-1; i++) {
+			for(int j=0; j < numRows-1; j++) {
+				grid[i][j] = new BoardCell(i, j);
+				initHelper(grid[i][j], layout.get(i)[j]);
+			}
+		}
 	}
 
 
-	public BoardCell getCell(int row, int col) {
-		return grid[row][col];
+	public BoardCell getCell(int col, int row) {
+		return grid[col][row];
 	}
 
 	public int getNumRows() {
@@ -47,14 +85,12 @@ public class Board {
 		return numColumns;
 	}
 
-	public Room getRoom(BoardCell c){
-		Room r = new Room(" ");
-		return r;
+	public Room getRoom(BoardCell cell){
+		return rooms.get(cell.getInitial());
 	}
 
 	public Room getRoom(char c){
-		Room r = new Room("c");
-		return r;
+		return rooms.get(c);
 	}
 
 	public void loadSetupConfig() throws BadConfigFormatException {
@@ -101,26 +137,26 @@ public class Board {
 					numColumns++;
 				}
 			}
-
+			System.out.println(numColumns);
 
 			Scanner csvReader3 = new Scanner(csvFile);
 			
-			ArrayList<String[]> layout = new ArrayList<>();
+			
 			while(csvReader3.hasNextLine()) {
 				scan = csvReader3.nextLine();
 				layout.add(scan.split(","));
 			}	
 			
-			int COLS = layout.get(0).length;
-			int ROWS = layout.size();
+			numColumns = layout.get(0).length;
+			numRows = layout.size();
 			
 			for(int i=0; i<numColumns-1; i++) {
-				if (layout.get(i).length != COLS) { 
+				if (layout.get(i).length != numColumns) { 
 					throw new BadConfigFormatException();
 				}
 				
 				for(int j=0; j<numRows-1; j++) {
-					if(numRows != ROWS) {
+					if(numRows != layout.size()) {
 						throw new BadConfigFormatException();
 					}
 					if (!rooms.containsKey(layout.get(i)[j].charAt(0)) && layout.get(i)[j].charAt(0) != 'X' && layout.get(i)[j].charAt(0) != 'W') {
@@ -129,7 +165,8 @@ public class Board {
 					}
 				}
 			}
-			
+			System.out.println(numColumns);
+			System.out.println(numRows);
 			csvReader1.close();
 			csvReader2.close();
 			csvReader3.close();
