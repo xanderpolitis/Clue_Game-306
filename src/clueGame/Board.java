@@ -49,9 +49,11 @@ public class Board {
 					break;
 				case '*':
 					cell.setRoomCenter();
+					rooms.get(letters.charAt(0)).setCenterCell(cell);
 					break;
 				case '#':
 					cell.setLabel();
+					rooms.get(letters.charAt(0)).setLabelCell(cell);
 					break;
 				default:
 					cell.setSecretPassage(letters.charAt(1));
@@ -63,10 +65,10 @@ public class Board {
 		loadSetupConfig();
 		loadLayoutConfig();
 		
-		grid = new BoardCell[numColumns][numRows];
+		grid = new BoardCell[numRows][numColumns];
 		
-		for(int i=0; i < numColumns-1; i++) {
-			for(int j=0; j < numRows-1; j++) {
+		for(int i=0; i < numRows; i++) {
+			for(int j=0; j < numColumns; j++) {
 				grid[i][j] = new BoardCell(i, j);
 				initHelper(grid[i][j], layout.get(i)[j]);
 			}
@@ -87,6 +89,7 @@ public class Board {
 	}
 
 	public Room getRoom(BoardCell cell){
+		System.out.println(cell);
 		return rooms.get(cell.getInitial());
 	}
 
@@ -109,6 +112,10 @@ public class Board {
 					throw new BadConfigFormatException();
 				}
 				if (parts[0].equals("Room")) {
+					Room room = new Room(parts[1]);
+					rooms.put(parts[2].charAt(0), room);
+				}
+				if (parts[0].equals("Space")) {
 					Room room = new Room(parts[1]);
 					rooms.put(parts[2].charAt(0), room);
 				}
@@ -176,6 +183,7 @@ public class Board {
 		}
 
 	}
+	
 
 	public Set<BoardCell> getAdjList(int i, int j) {
 		return null;

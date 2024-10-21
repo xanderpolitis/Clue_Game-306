@@ -68,6 +68,10 @@ public class BoardCell {
     public void setLabel() {
         isRoomLabel = true;
     }
+    
+    public boolean getLabel(BoardCell c) {
+        return isRoomLabel;
+    }
 
     public char getSecretPassage() {
         return secretPassage;
