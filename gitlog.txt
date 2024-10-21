@@ -1,3 +1,75 @@
+commit 36546ef9c1b3eb88ca75b45c05eabdc2504b4d84
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sun Oct 20 19:30:14 2024 -0600
+
+    ez board is COMPLETE (passed 306 init tests)
+
+commit c51ec804e97cf1c8e54ecec470df50dbe7502b34
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sun Oct 20 09:13:34 2024 -0600
+
+    more board logic complete
+
+commit eb397469ef08958975e3f8f7fd6f2ba6940e5ea7
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sat Oct 19 22:32:36 2024 -0600
+
+    lots of board stuff
+
+commit dc16de885946c0310933e16f3846c82b84b5785a
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sat Oct 19 21:02:23 2024 -0600
+
+    boardcell should be completed
+
+commit a91eda12f95ebc40fe3930b3bcabcda40b486cd5
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Sat Oct 19 20:42:58 2024 -0600
+
+    added adj tests
+
+commit ebafb72956f213d9b2da88bc07d75f143faf6beb
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 18 18:54:49 2024 -0600
+
+    Lots of work on the tests, loadLayout and loadBoard Config both work now
+
+commit 986cbd2ccec97807745c61ce2df07cd6738cf0f4
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Oct 16 23:51:07 2024 -0600
+
+    Mateo added tests for C15A-2
+
+commit 6e91d4ff6af280950ba04957692bfe5877b3d74b
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Oct 16 17:30:21 2024 -0600
+
+    Mateo and Xander setting board and starting second assignment
+
+commit e7b0ce740ebcf2540fe614fbd8186c03e210a6c3
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Oct 16 16:54:41 2024 -0600
+
+    Mateo and Xander setting up board
+
+commit 52c672d876ed4adc699295fabdf12fd82217ed9c
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Wed Oct 16 15:11:16 2024 -0600
+
+    added stuff
+
+commit 7588e6b52b2afd464810ceb25576097259ba7620
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Wed Oct 16 14:56:15 2024 -0600
+
+    added try catch to loadSetupConfig()
+
+commit d94c652fcf2c4b50d6575c3156991d6ab248772b
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Oct 16 13:12:45 2024 -0600
+
+    git log added
+
 commit 5bee9dd82479691d0dadf8962fe8cc616dafa06b
 Author: Xander Politis <xanderpolitis@gmail.com>
 Date:   Tue Oct 15 21:07:03 2024 -0600
