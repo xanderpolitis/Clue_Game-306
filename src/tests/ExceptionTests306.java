@@ -17,7 +17,7 @@ public class ExceptionTests306 {
 	// Test that an exception is thrown for a layout file that does not
 	// have the same number of columns for each row
 	@Test
-	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
+	public void testBadColumns() throws BadConfigFormatException {
 		assertThrows(BadConfigFormatException.class, () -> {
 			// Note that we are using a LOCAL Board variable, because each
 			// test will load different files

@@ -61,9 +61,13 @@ public class Board {
 		}
 	}
 	
-	public void initialize() throws BadConfigFormatException {
-		loadSetupConfig();
-		loadLayoutConfig();
+	public void initialize() throws BadConfigFormatException  {
+		try {
+			loadSetupConfig();
+			loadLayoutConfig();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
 		
 		grid = new BoardCell[numRows][numColumns];
 		
@@ -97,7 +101,7 @@ public class Board {
 		return rooms.get(c);
 	}
 
-	public void loadSetupConfig() throws BadConfigFormatException {
+	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException {
 		try {
 			File txtFile = new File(roomConfigFile);
 			Scanner txtReader = new Scanner(txtFile);
@@ -158,19 +162,33 @@ public class Board {
 			numColumns = layout.get(0).length;
 			numRows = layout.size();
 			
-			for(int i=0; i<numColumns-1; i++) {
-				if (layout.get(i).length != numColumns) { 
+			for(String[] i : layout) {
+				if (i.length != numColumns) { 
 					throw new BadConfigFormatException();
 				}
 				
-				for(int j=0; j<numRows-1; j++) {
+				for(String j : i) {
+					String cell = j;
+					char initial = j.charAt(0);
+					if (cell.length() == 1){
+						if (!rooms.containsKey(initial)) {
+							throw new BadConfigFormatException();
+						}
+					}else if (cell.length() == 2){
+						char secondChar = j.charAt(1);
+						if (secondChar == '^' || secondChar == 'v' || secondChar == '>'|| secondChar == '<'||
+						secondChar == '*'|| secondChar == '#'){
+							continue;
+						} else if (secondChar == 'X' || secondChar == 'W' || !rooms.containsKey(secondChar)){
+							throw new BadConfigFormatException();
+						}
+					}
+						
+					
 					if(numRows != layout.size()) {
 						throw new BadConfigFormatException();
 					}
-					if (!rooms.containsKey(layout.get(i)[j].charAt(0)) && layout.get(i)[j].charAt(0) != 'X' && layout.get(i)[j].charAt(0) != 'W') {
-						System.out.println(layout.get(i)[j].charAt(0));
-						throw new BadConfigFormatException();
-					}
+					
 				}
 			}
 			System.out.println(numColumns);
