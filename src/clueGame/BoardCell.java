@@ -14,7 +14,7 @@ public class BoardCell {
     public char specialCharacter;
     private char secretPassage;
     
-    private Set<TestBoardCell> adjList;
+    private Set<BoardCell> adjList;
     
     private boolean isRoomCenter;
     private boolean isRoomLabel;
@@ -32,11 +32,11 @@ public class BoardCell {
 		this.occupied = false;
 	}
     
-    public void addAdjacency(TestBoardCell cell) {
+    public void addAdjacency(BoardCell cell) {
 		adjList.add(cell);
 	}
     
-    public Set<TestBoardCell> getAdjList(){	
+    public Set<BoardCell> getAdjList(){	
 		return adjList;
 	}
     
@@ -95,6 +95,10 @@ public class BoardCell {
 
 	public void setOccupied(boolean b) {
 		occupied = b;
+	}
+	
+	public boolean getOccupied() {
+		return occupied;
 	}
 
 }

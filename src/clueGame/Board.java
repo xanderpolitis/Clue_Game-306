@@ -1,6 +1,9 @@
 package clueGame;
 
 import java.util.*;
+
+import experiment.TestBoardCell;
+
 import java.io.*;
 
 
@@ -16,6 +19,10 @@ public class Board {
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private static String datapath = "data/";
+	
+	private Set<BoardCell> visited;
+	private Set<BoardCell> targets;
+
 	
 	
 	ArrayList<String[]> layout = new ArrayList<>();
@@ -77,6 +84,8 @@ public class Board {
 				initHelper(grid[i][j], layout.get(i)[j]);
 			}
 		}
+		
+		
 	}
 
 
@@ -204,14 +213,63 @@ public class Board {
 	
 
 	public Set<BoardCell> getAdjList(int i, int j) {
-		return null;
+		return grid[i][j].getAdjList();
 	}
-
-	public Set<BoardCell> getTargets() {
-		return null;
+	
+	public void findAllTargets(BoardCell startCell, int numSteps) {
+		
+		if (visited.contains(startCell)) {
+			return;
+		}
+		
+		visited.add(startCell);
+		
+		if(startCell.getOccupied()) {
+			return;
+		}
+		
+		if(numSteps == 0 || startCell.isRoomCenter()) {
+			targets.add(startCell);
+			return;
+		}
+		
+		for (BoardCell adjCell : startCell.getAdjList()) {
+				findAllTargets(adjCell, numSteps-1); 
+				visited.remove(adjCell);
+		}
+		return;
+		
+		
+		
+//		for (BoardCell adjCell : startCell.getAdjList()) {
+//			if(visited.contains(adjCell)) {
+//				continue;
+//			}
+//			visited.add(adjCell);
+//			if(numSteps == 1) {
+//				targets.add(adjCell);
+//			}else {
+//				findAllTargets(adjCell, numSteps-1); 
+//			}
+//			visited.remove(adjCell);
+//		}
 	}
+	
+	public void calcTargets(BoardCell startCell, int pathlength) {
+		targets.clear();
+		visited.clear();
+		
+		targets = new HashSet<>();
+		visited = new HashSet<>();
 
-	public void calcTargets(int i, int j, int k) {
-
+		//visited.add(startCell);
+		
+		findAllTargets(startCell, pathlength);
+		
+		return;
+	}
+	
+	public Set<BoardCell> getTargets(){
+		return targets;
 	}
 }
