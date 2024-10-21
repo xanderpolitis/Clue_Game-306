@@ -5,17 +5,18 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
 
 public class BoardAdjTargetTest {
 
-    private Board board;
+    private static Board board;
 
     @Before
-    public void setUp() {
+    public void setUp() throws BadConfigFormatException {
         // Initialize the board with the layout file
-        board = new Board("ClueLayout.csv", "room_names.txt");
+        board.setConfigFiles("ClueLayout.csv", "room_names.txt");
         board.initialize();
     }
 

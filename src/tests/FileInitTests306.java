@@ -139,7 +139,7 @@ public class FileInitTests306 {
 		assertFalse( cell.isLabel() );
 		
 		// test a closet
-		cell = board.getCell(24, 18);
+		cell = board.getCell(24, 18); 
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Unused" ) ;
