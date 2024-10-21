@@ -1,3 +1,21 @@
+commit 692d6ce272a9297b34b57a15ca55665eba8dc22a
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Sun Oct 20 21:26:47 2024 -0600
+
+    exception tests running
+
+commit ef670f71721997ee5a5c6aadec3da5c13d4b349c
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sun Oct 20 20:01:18 2024 -0600
+
+    .txt files added
+
+commit 3ac3e01e23197b22ddc7404d3a6d16544d714d35
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sun Oct 20 19:56:58 2024 -0600
+
+    test push
+
 commit 36546ef9c1b3eb88ca75b45c05eabdc2504b4d84
 Author: Xander Politis <xanderpolitis@gmail.com>
 Date:   Sun Oct 20 19:30:14 2024 -0600
