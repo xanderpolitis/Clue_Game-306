@@ -13,18 +13,18 @@ public class Board {
 	private BoardCell[][] grid;
 	private int numRows = 0;
 	private int numColumns = 0;
-	
+
 	private Map<Character, Room> rooms = new HashMap<>();
-	
+
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private static String datapath = "data/";
-	
+
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 
-	
-	
+
+
 	ArrayList<String[]> layout = new ArrayList<>();
 
 	private Board() {}
@@ -42,32 +42,32 @@ public class Board {
 		cell.setInitial(letters.charAt(0));
 		if (letters.length() == 2) {
 			switch(letters.charAt(1)) {
-				case '^':
-					cell.setDoorDirection(DoorDirection.UP);
-					break;
-				case '>':
-					cell.setDoorDirection(DoorDirection.RIGHT);
-					break;
-				case '<':
-					cell.setDoorDirection(DoorDirection.LEFT);
-					break;
-				case 'v':
-					cell.setDoorDirection(DoorDirection.DOWN);
-					break;
-				case '*':
-					cell.setRoomCenter();
-					rooms.get(letters.charAt(0)).setCenterCell(cell);
-					break;
-				case '#':
-					cell.setLabel();
-					rooms.get(letters.charAt(0)).setLabelCell(cell);
-					break;
-				default:
-					cell.setSecretPassage(letters.charAt(1));
+			case '^':
+				cell.setDoorDirection(DoorDirection.UP);
+				break;
+			case '>':
+				cell.setDoorDirection(DoorDirection.RIGHT);
+				break;
+			case '<':
+				cell.setDoorDirection(DoorDirection.LEFT);
+				break;
+			case 'v':
+				cell.setDoorDirection(DoorDirection.DOWN);
+				break;
+			case '*':
+				cell.setRoomCenter();
+				rooms.get(letters.charAt(0)).setCenterCell(cell);
+				break;
+			case '#':
+				cell.setLabel();
+				rooms.get(letters.charAt(0)).setLabelCell(cell);
+				break;
+			default:
+				cell.setSecretPassage(letters.charAt(1));
 			}
 		}
 	}
-	
+
 	public void initialize() throws BadConfigFormatException  {
 		try {
 			loadSetupConfig();
@@ -75,20 +75,22 @@ public class Board {
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		grid = new BoardCell[numRows][numColumns];
-		
+
 		for(int i=0; i < numRows; i++) {
 			for(int j=0; j < numColumns; j++) {
 				grid[i][j] = new BoardCell(i, j);
 				initHelper(grid[i][j], layout.get(i)[j]);
 			}
 		}
-		
+
 		for(int i = 0; i< numRows;i++) {
 			for(int j =0; j< numColumns; j++) {
+				BoardCell cell = grid[i][j];
+				BoardCell cellMoved;
+				BoardCell roomCenterCell;
 				if(grid[i][j].getInitial() == 'W') {
-
 					if(i > 0 && grid[i-1][j].getInitial() == 'W') {
 						grid[i][j].addAdjacency(grid[i-1][j]);
 					}
@@ -102,15 +104,46 @@ public class Board {
 						grid[i][j].addAdjacency(grid[i][j+1]);
 					}
 				}
-				//if() { //if door, 4 cases ^,>,<,v
-					
-				//}
-				//if() { // if SP, 
-					
-				//}
+				if(grid[i][j].isDoorway()) { //if door, 4 cases ^,>,<,v
+					switch(grid[i][j].getDoorDirection()) {
+					//UP, DOWN, LEFT, RIGHT, NONE
+					case UP:
+						cellMoved = grid[i-1][j];
+						roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
+						cell.addAdjacency(roomCenterCell);
+						roomCenterCell.addAdjacency(cell);
+						break;
+					case DOWN:
+						cellMoved = grid[i+1][j];
+						roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
+						cell.addAdjacency(roomCenterCell);
+						roomCenterCell.addAdjacency(cell);
+						break;
+					case LEFT:
+						cellMoved = grid[i][j-1];
+						roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
+						cell.addAdjacency(roomCenterCell);
+						roomCenterCell.addAdjacency(cell);
+						break;
+					case RIGHT:
+						cellMoved = grid[i][j+1];
+						roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
+						cell.addAdjacency(roomCenterCell);
+						roomCenterCell.addAdjacency(cell);
+						break;
+					default:
+						break;
+					}
+					if(grid[i][j].isSecretPassage()) { // if SP, 
+						roomCenterCell = rooms.get(cell.getInitial()).getCenterCell();
+						cell.addAdjacency(roomCenterCell);
+						roomCenterCell.addAdjacency(cell);
+					}
+				}
 			}
 		}
 	}
+
 
 
 	public BoardCell getCell(int col, int row) { // Reactor later
@@ -185,21 +218,21 @@ public class Board {
 			System.out.println(numColumns);
 
 			Scanner csvReader3 = new Scanner(csvFile);
-			
-			
+
+
 			while(csvReader3.hasNextLine()) {
 				scan = csvReader3.nextLine();
 				layout.add(scan.split(","));
 			}	
-			
+
 			numColumns = layout.get(0).length;
 			numRows = layout.size();
-			
+
 			for(String[] i : layout) {
 				if (i.length != numColumns) { 
 					throw new BadConfigFormatException();
 				}
-				
+
 				for(String j : i) {
 					String cell = j;
 					char initial = j.charAt(0);
@@ -210,18 +243,18 @@ public class Board {
 					}else if (cell.length() == 2){
 						char secondChar = j.charAt(1);
 						if (secondChar == '^' || secondChar == 'v' || secondChar == '>'|| secondChar == '<'||
-						secondChar == '*'|| secondChar == '#'){
+								secondChar == '*'|| secondChar == '#'){
 							continue;
 						} else if (secondChar == 'X' || secondChar == 'W' || !rooms.containsKey(secondChar)){
 							throw new BadConfigFormatException();
 						}
 					}
-						
-					
+
+
 					if(numRows != layout.size()) {
 						throw new BadConfigFormatException();
 					}
-					
+
 				}
 			}
 			System.out.println(numColumns);
@@ -234,63 +267,63 @@ public class Board {
 		}
 
 	}
-	
+
 
 	public Set<BoardCell> getAdjList(int i, int j) {
 		return grid[i][j].getAdjList();
 	}
-	
+
 	public void findAllTargets(BoardCell startCell, int numSteps) {
-		
+
 		if (visited.contains(startCell)) {
 			return;
 		}
-		
+
 		visited.add(startCell);
-		
+
 		if(startCell.getOccupied()) {
 			return;
 		}
-		
+
 		if(numSteps == 0 || startCell.isRoomCenter()) {
 			targets.add(startCell);
 			return;
 		}
-		
+
 		for (BoardCell adjCell : startCell.getAdjList()) {
-				findAllTargets(adjCell, numSteps-1); 
-				visited.remove(adjCell);
+			findAllTargets(adjCell, numSteps-1); 
+			visited.remove(adjCell);
 		}
 		return;
-		
-		
-		
-//		for (BoardCell adjCell : startCell.getAdjList()) {
-//			if(visited.contains(adjCell)) {
-//				continue;
-//			}
-//			visited.add(adjCell);
-//			if(numSteps == 1) {
-//				targets.add(adjCell);
-//			}else {
-//				findAllTargets(adjCell, numSteps-1); 
-//			}
-//			visited.remove(adjCell);
-//		}
+
+
+
+		//		for (BoardCell adjCell : startCell.getAdjList()) {
+		//			if(visited.contains(adjCell)) {
+		//				continue;
+		//			}
+		//			visited.add(adjCell);
+		//			if(numSteps == 1) {
+		//				targets.add(adjCell);
+		//			}else {
+		//				findAllTargets(adjCell, numSteps-1); 
+		//			}
+		//			visited.remove(adjCell);
+		//		}
 	}
-	
+
 	public void calcTargets(BoardCell startCell, int pathlength) {
 		targets.clear();
 		visited.clear();
-		
+
 
 		//visited.add(startCell);
-		
+
 		findAllTargets(startCell, pathlength);
-		
+
 		return;
 	}
-	
+
 	public Set<BoardCell> getTargets(){
 		return targets;
 	}
