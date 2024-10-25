@@ -20,8 +20,8 @@ public class Board {
 	private String roomConfigFile;
 	private static String datapath = "data/";
 	
-	private Set<BoardCell> visited;
-	private Set<BoardCell> targets;
+	private Set<BoardCell> visited = new HashSet<BoardCell>();
+	private Set<BoardCell> targets = new HashSet<BoardCell>();
 
 	
 	
@@ -85,11 +85,35 @@ public class Board {
 			}
 		}
 		
-		
+		for(int i = 0; i< numRows;i++) {
+			for(int j =0; j< numColumns; j++) {
+				if(grid[i][j].getInitial() == 'W') {
+
+					if(i > 0 && grid[i-1][j].getInitial() == 'W') {
+						grid[i][j].addAdjacency(grid[i-1][j]);
+					}
+					if(j > 0 && grid[i][j-1].getInitial() == 'W') {
+						grid[i][j].addAdjacency(grid[i][j-1]);
+					}
+					if(i+1 < numRows && grid[i+1][j].getInitial() == 'W') {
+						grid[i][j].addAdjacency(grid[i+1][j]);
+					}
+					if(j+1 < numColumns && grid[i][j+1].getInitial() == 'W') {
+						grid[i][j].addAdjacency(grid[i][j+1]);
+					}
+				}
+				//if() { //if door, 4 cases ^,>,<,v
+					
+				//}
+				//if() { // if SP, 
+					
+				//}
+			}
+		}
 	}
 
 
-	public BoardCell getCell(int col, int row) {
+	public BoardCell getCell(int col, int row) { // Reactor later
 		return grid[col][row];
 	}
 
@@ -259,8 +283,6 @@ public class Board {
 		targets.clear();
 		visited.clear();
 		
-		targets = new HashSet<>();
-		visited = new HashSet<>();
 
 		//visited.add(startCell);
 		
