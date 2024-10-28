@@ -21,12 +21,8 @@ public class BoardAdjTargetTest {
         // Initialize the board with the layout file
     	board = Board.getInstance();
         board.setConfigFiles("ClueLayout.csv", "room_names.txt");
-        try {
 			board.initialize();
-		} catch (BadConfigFormatException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
 
     // Adjacency Tests

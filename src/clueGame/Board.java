@@ -68,11 +68,14 @@ public class Board {
 		}
 	}
 
-	public void initialize() throws BadConfigFormatException  {
+	public void initialize()  {
 		try {
+			layout.clear();
 			loadSetupConfig();
 			loadLayoutConfig();
 		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (BadConfigFormatException e){
 			System.out.println(e.getMessage());
 		}
 
