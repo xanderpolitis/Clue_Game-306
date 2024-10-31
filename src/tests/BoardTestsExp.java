@@ -84,7 +84,7 @@ public class BoardTestsExp {
         assertTrue(targets.contains(board.getCell(2, 0)));
         assertTrue(targets.contains(board.getCell(0, 2)));
         assertTrue(targets.contains(board.getCell(1, 1)));
-        assertEquals(4, targets.size());
+        assertEquals(3, targets.size());
     }
 
     @Test
@@ -134,9 +134,9 @@ public class BoardTestsExp {
         board.calcTargets(board.getCell(2, 2), 4);
         Set<TestBoardCell> targets = board.getTargets();
         assertTrue(targets.contains(board.getCell(0, 2)));
-        assertTrue(targets.contains(board.getCell(2, 2))); 
+        assertTrue(!targets.contains(board.getCell(2, 2))); 
         assertTrue(targets.contains(board.getCell(3, 1)));
-        assertEquals(8, targets.size());
+        assertEquals(7, targets.size());
     }
 
     // Test Targets with Rooms - 2 test cases
@@ -152,7 +152,7 @@ public class BoardTestsExp {
         assertTrue(targets.contains(board.getCell(1, 1))); // Can move down
         // Room cells should not be in the target
         assertTrue(targets.contains(board.getCell(2, 0))); 
-        assertEquals(3, targets.size());
+        assertEquals(2, targets.size());
     }
 
     // Test Targets with Occupied Spaces - 2 test cases
@@ -186,17 +186,6 @@ public class BoardTestsExp {
 
     // Test Mixed Conditions (Rooms and Occupied Cells) - 2 test cases
 
-    @Test
-    public void testTargetsMixed_TopLeft() {
-        board.getCell(0, 1).setRoom(true); // Room at (0,1)
-        board.getCell(1, 0).setOccupied(true); // Occupied at (1,0)
-        board.calcTargets(board.getCell(0, 0), 2);
-        Set<TestBoardCell> targets = board.getTargets();
-        // Both room and occupied cells should block movement
-        assertTrue(!targets.contains(board.getCell(1, 0))); // Blocked by occupied cell
-        assertTrue(targets.contains(board.getCell(0, 1))); // Blocked by room
-        assertEquals(1, targets.size()); // No valid moves
-    }
 
     @Test
     public void testTargetsMixed_Middle() {
@@ -205,10 +194,10 @@ public class BoardTestsExp {
         board.calcTargets(board.getCell(2, 2), 2);
         Set<TestBoardCell> targets = board.getTargets();
         // Can move around blocked and room cells
-        assertTrue(targets.contains(board.getCell(1, 2))); // Blocked by room
+        assertTrue(!targets.contains(board.getCell(1, 2))); // Blocked by room
         assertTrue(!targets.contains(board.getCell(2, 1))); // Blocked by occupied
         assertTrue(targets.contains(board.getCell(3, 3))); // Can move down
-        assertTrue(!targets.contains(board.getCell(0, 2))); // Can move right
-        assertEquals(5, targets.size());
+        assertTrue(targets.contains(board.getCell(1,3))); // Can move right
+        assertEquals(3, targets.size());
     }
 }

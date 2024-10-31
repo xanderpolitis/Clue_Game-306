@@ -107,38 +107,42 @@ public class Board {
 						grid[i][j].addAdjacency(grid[i][j+1]);
 					}
 				}
-				if(grid[i][j].isDoorway()) { //if door, 4 cases ^,>,<,v
-					switch(grid[i][j].getDoorDirection()) {
-					//UP, DOWN, LEFT, RIGHT, NONE
-					case UP:
-						cellMoved = grid[i-1][j];
-						roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
-						cell.addAdjacency(roomCenterCell);
-						roomCenterCell.addAdjacency(cell);
-						break;
-					case DOWN:
-						cellMoved = grid[i+1][j];
-						roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
-						cell.addAdjacency(roomCenterCell);
-						roomCenterCell.addAdjacency(cell);
-						break;
-					case LEFT:
-						cellMoved = grid[i][j-1];
-						roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
-						cell.addAdjacency(roomCenterCell);
-						roomCenterCell.addAdjacency(cell);
-						break;
-					case RIGHT:
-						cellMoved = grid[i][j+1];
-						roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
-						cell.addAdjacency(roomCenterCell);
-						roomCenterCell.addAdjacency(cell);
-						break;
-					default:
-						break;
-					}
-					if(grid[i][j].isSecretPassage()) { // if SP, 
+				switch(grid[i][j].getDoorDirection()) {
+				//UP, DOWN, LEFT, RIGHT, NONE
+				case UP:
+					cell = grid[i][j];
+					cellMoved = grid[i-1][j];
+					roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
+					cell.addAdjacency(roomCenterCell);
+					roomCenterCell.addAdjacency(cell);
+					break;
+				case DOWN:
+					cell = grid[i][j];
+					cellMoved = grid[i+1][j];
+					roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
+					cell.addAdjacency(roomCenterCell);
+					roomCenterCell.addAdjacency(cell);
+					break;
+				case LEFT:
+					cell = grid[i][j];
+					cellMoved = grid[i][j-1];
+					roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
+					cell.addAdjacency(roomCenterCell);
+					roomCenterCell.addAdjacency(cell);
+					break;
+				case RIGHT:
+					cell = grid[i][j];
+					cellMoved = grid[i][j+1];
+					roomCenterCell = rooms.get(cellMoved.getInitial()).getCenterCell();
+					cell.addAdjacency(roomCenterCell);
+					roomCenterCell.addAdjacency(cell);
+					break;
+				case NONE:
+					cell = grid[i][j];
+					if(cell.isSecretPassage()) { // if SP, 
+						// get the room of the current cells initial, get that room's CC
 						roomCenterCell = rooms.get(cell.getInitial()).getCenterCell();
+						cell = rooms.get(cell.getSecretPassage()).getCenterCell();
 						cell.addAdjacency(roomCenterCell);
 						roomCenterCell.addAdjacency(cell);
 					}
@@ -278,41 +282,46 @@ public class Board {
 
 	public void findAllTargets(BoardCell startCell, int numSteps) {
 
-		if (visited.contains(startCell)) {
-			return;
-		}
-
-		visited.add(startCell);
-
-		if(startCell.getOccupied()) {
-			return;
-		}
-
-		if(numSteps == 0 || startCell.isRoomCenter()) {
-			targets.add(startCell);
-			return;
-		}
-
-		for (BoardCell adjCell : startCell.getAdjList()) {
-			findAllTargets(adjCell, numSteps-1); 
-			visited.remove(adjCell);
-		}
-		return;
-
-
-
+		//		if (visited.contains(startCell)) {
+		//			return;
+		//		}
+		//
+		//		visited.add(startCell);
+		//
+		//		if(startCell.getOccupied()) {
+		//			return;
+		//		}
+		//
+		//		if(numSteps == 0 || startCell.isRoomCenter()) {
+		//			targets.add(startCell);
+		//			return;
+		//		}
+		//
 		//		for (BoardCell adjCell : startCell.getAdjList()) {
-		//			if(visited.contains(adjCell)) {
-		//				continue;
-		//			}
-		//			visited.add(adjCell);
-		//			if(numSteps == 1) {
-		//				targets.add(adjCell);
-		//			}else {
-		//				findAllTargets(adjCell, numSteps-1); 
-		//			}
+		//			findAllTargets(adjCell, numSteps-1); 
 		//			visited.remove(adjCell);
 		//		}
+		//		return;
+
+
+
+		for (BoardCell adjCell : startCell.getAdjList()) {
+			if(visited.contains(adjCell) || (adjCell.getOccupied() && !adjCell.isRoomCenter())) {
+				continue;
+			}
+			visited.add(adjCell);
+			
+			if(adjCell.isRoomCenter()||adjCell.isSecretPassage()) {
+				targets.add(adjCell);
+				continue;
+			}
+			if(numSteps == 1) {
+				targets.add(adjCell);
+			}else {
+				findAllTargets(adjCell, numSteps-1); 
+			}
+			visited.remove(adjCell);
+		}
 	}
 
 	public void calcTargets(BoardCell startCell, int pathlength) {
@@ -320,7 +329,7 @@ public class Board {
 		visited.clear();
 
 
-		//visited.add(startCell);
+		visited.add(startCell);
 
 		findAllTargets(startCell, pathlength);
 

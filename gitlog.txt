@@ -185,3 +185,220 @@ Author: Xander Politis <xanderpolitis@gmail.com>
 Date:   Sat Oct 5 21:30:04 2024 -0600
 
     initial commit
+commit 51979be3e3c12a0a4158b74da3c06028f9973707
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Mon Oct 28 14:02:52 2024 -0600
+
+    fixed Tests not running at the same time
+
+commit 68cde523d2c1a599df9d5afbc589689cb7be7e1f
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 25 14:53:29 2024 -0600
+
+    adjacency tests should be correct
+
+commit 09a8c0465effb9daf893cd6633b0ce6d82aa5258
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 25 13:57:43 2024 -0600
+
+    fixed most of the Tests
+
+commit a53dabcf8ce4c06637972d35d04baaee0f6e55d2
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Sun Oct 20 22:42:51 2024 -0600
+
+    adj tests
+
+commit 84a60cb97daf63b784ee354fd54453699482fd24
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Sun Oct 20 21:47:51 2024 -0600
+
+    added 306 adj tests
+
+commit 692d6ce272a9297b34b57a15ca55665eba8dc22a
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Sun Oct 20 21:26:47 2024 -0600
+
+    exception tests running
+
+commit ef670f71721997ee5a5c6aadec3da5c13d4b349c
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sun Oct 20 20:01:18 2024 -0600
+
+    .txt files added
+
+commit 3ac3e01e23197b22ddc7404d3a6d16544d714d35
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sun Oct 20 19:56:58 2024 -0600
+
+    test push
+
+commit 36546ef9c1b3eb88ca75b45c05eabdc2504b4d84
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sun Oct 20 19:30:14 2024 -0600
+
+    ez board is COMPLETE (passed 306 init tests)
+
+commit c51ec804e97cf1c8e54ecec470df50dbe7502b34
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sun Oct 20 09:13:34 2024 -0600
+
+    more board logic complete
+
+commit eb397469ef08958975e3f8f7fd6f2ba6940e5ea7
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sat Oct 19 22:32:36 2024 -0600
+
+    lots of board stuff
+
+commit dc16de885946c0310933e16f3846c82b84b5785a
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sat Oct 19 21:02:23 2024 -0600
+
+    boardcell should be completed
+
+commit a91eda12f95ebc40fe3930b3bcabcda40b486cd5
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Sat Oct 19 20:42:58 2024 -0600
+
+    added adj tests
+
+commit ebafb72956f213d9b2da88bc07d75f143faf6beb
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 18 18:54:49 2024 -0600
+
+    Lots of work on the tests, loadLayout and loadBoard Config both work now
+
+commit 986cbd2ccec97807745c61ce2df07cd6738cf0f4
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Oct 16 23:51:07 2024 -0600
+
+    Mateo added tests for C15A-2
+
+commit 6e91d4ff6af280950ba04957692bfe5877b3d74b
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Oct 16 17:30:21 2024 -0600
+
+    Mateo and Xander setting board and starting second assignment
+
+commit e7b0ce740ebcf2540fe614fbd8186c03e210a6c3
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Oct 16 16:54:41 2024 -0600
+
+    Mateo and Xander setting up board
+
+commit 52c672d876ed4adc699295fabdf12fd82217ed9c
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Wed Oct 16 15:11:16 2024 -0600
+
+    added stuff
+
+commit 7588e6b52b2afd464810ceb25576097259ba7620
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Wed Oct 16 14:56:15 2024 -0600
+
+    added try catch to loadSetupConfig()
+
+commit d94c652fcf2c4b50d6575c3156991d6ab248772b
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Oct 16 13:12:45 2024 -0600
+
+    git log added
+
+commit 5bee9dd82479691d0dadf8962fe8cc616dafa06b
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Tue Oct 15 21:07:03 2024 -0600
+
+    tests compile? i think...
+
+commit 0001081410890fe09afd167ce6596b08c3d6a0d2
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Sat Oct 12 01:23:20 2024 -0600
+
+    Mateo some tests failing
+
+commit 4e0e7d864030081df61b5f83f314c13668f275d4
+Merge: 331042c 637a7a0
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 11 22:08:50 2024 -0600
+
+    Merge branch 'main' of https://github.com/mateoriv/Clue-Game
+    merge
+
+commit 331042c252cab7e538e7d857d09b1a8157865436
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 11 22:02:06 2024 -0600
+
+    room_names.txt added
+
+commit 637a7a0147a600bf24542fd0b00adaece1de3e36
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Fri Oct 11 21:57:34 2024 -0600
+
+    Mateo Aded clueinitfiles and ne package
+
+commit 984712d6e737b68602f7f95fedd98ad92c2fd539
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 11 21:20:57 2024 -0600
+
+    updadted TestBoard, upadated test case, all tests pass
+
+commit bfd098972afcef848e61dd9809cf58c21d01662b
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Fri Oct 11 16:34:25 2024 -0600
+
+    updadted TestBoard, does not work right now
+
+commit 686e1e8bbe0f1c95d4fbfd0960fdf5230c4fc289
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Wed Oct 9 13:37:40 2024 -0600
+
+    addedClueLayout.csv
+
+commit 031ce222b5b7b0a5fb276b6ea46d8baf192855c5
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Mon Oct 7 23:34:38 2024 -0600
+
+    All tests addedd
+
+commit 3c676fb0a597f1300f46efab936fd721c97d6a02
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Mon Oct 7 20:54:22 2024 -0600
+
+    test???
+
+commit ec1f9ef63951c6440d293d2921952d44466ffe07
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Mon Oct 7 14:11:43 2024 -0600
+
+    test
+
+commit b0c5e383f06e987ac0f5a70fd0b65e895f3c054b
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Mon Oct 7 14:07:35 2024 -0600
+
+    testing push access
+
+commit e1a9b99f911dd4d9274eb2a1af8308f2bdf3ceeb
+Author: Mateo Rivera <mateorivera@mines.edu>
+Date:   Mon Oct 7 13:49:20 2024 -0600
+
+    Created TestBoard class
+
+commit 780bdfdce6a07f4d199aa924cf7da9705d3ff3e6
+Author: Mateo Rivera <mateorivera@mines.edu>
+Date:   Mon Oct 7 11:49:13 2024 -0600
+
+    Implemented all constructors, setters, and getters for TestBoardCell
+
+commit 268f4c6f4f2852857ae42d672fb0e2f89223b718
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sat Oct 5 21:43:26 2024 -0600
+
+    classes added
+
+commit 3baead8eba4b883c4c999785298992e0308dec24
+Author: Xander Politis <xanderpolitis@gmail.com>
+Date:   Sat Oct 5 21:30:04 2024 -0600
+
+    initial commit

@@ -42,41 +42,41 @@ public class TestBoard {
 	
 	public void findAllTargets(TestBoardCell startCell, int numSteps) {
 		
-		if (visited.contains(startCell)) {
-			return;
-		}
+//		if (visited.contains(startCell)) {
+//			return;
+//		}
+//		
+//		visited.add(startCell);
+//		
+//		if(startCell.getOccupied()) {
+//			return;
+//		}
+//		
+//		if(numSteps == 0 || startCell.room()) {
+//			targets.add(startCell);
+//			return;
+//		}
+//		
+//		for (TestBoardCell adjCell : startCell.getAdjList()) {
+//				findAllTargets(adjCell, numSteps-1); 
+//				visited.remove(adjCell);
+//		}
+//		return;
 		
-		visited.add(startCell);
 		
-		if(startCell.getOccupied()) {
-			return;
-		}
-		
-		if(numSteps == 0 || startCell.room()) {
-			targets.add(startCell);
-			return;
-		}
 		
 		for (TestBoardCell adjCell : startCell.getAdjList()) {
+			if(visited.contains(adjCell) || adjCell.getOccupied() || adjCell.room()) {
+				continue;
+			}
+			visited.add(adjCell);
+			if(numSteps == 1) {
+				targets.add(adjCell);
+			}else {
 				findAllTargets(adjCell, numSteps-1); 
-				visited.remove(adjCell);
+			}
+			visited.remove(adjCell);
 		}
-		return;
-		
-		
-		
-//		for (TestBoardCell adjCell : startCell.getAdjList()) {
-//			if(visited.contains(adjCell)) {
-//				continue;
-//			}
-//			visited.add(adjCell);
-//			if(numSteps == 1) {
-//				targets.add(adjCell);
-//			}else {
-//				findAllTargets(adjCell, numSteps-1); 
-//			}
-//			visited.remove(adjCell);
-//		}
 	}
 	
 	
@@ -84,7 +84,7 @@ public class TestBoard {
 		targets = new HashSet<>();
 		visited = new HashSet<>();
 
-		//visited.add(startCell);
+		visited.add(startCell);
 		
 		findAllTargets(startCell, pathlength);
 		
