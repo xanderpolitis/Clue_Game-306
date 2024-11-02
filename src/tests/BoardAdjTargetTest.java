@@ -55,8 +55,8 @@ public class BoardAdjTargetTest {
     @Test
     public void testAdjacencySecretPassage() {
         // Test that secret passage connections work between rooms
-        Set<BoardCell> adjList = board.getAdjList(1, 1);
-        assertTrue(adjList.contains(board.getCell(8, 8)));
+        Set<BoardCell> adjList = board.getAdjList(9, 0);
+        assertTrue(adjList.contains(board.getCell(30, 27)));
         assertEquals(1, adjList.size());
     }
 
