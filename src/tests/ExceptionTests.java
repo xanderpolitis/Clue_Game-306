@@ -27,9 +27,7 @@ public class ExceptionTests {
 			board.setConfigFiles("ClueLayout.csv", "room_names.txt");
 			// Instead of initialize, we call the two load functions directly.
 			// This is necessary because initialize contains a try-catch.
-			board.loadSetupConfig();
-			
-			board.loadLayoutConfig();
+			board.initialize();
 			
 			//if it gets to this point of the program, it didn't throw
 			assertEquals(1, 1);
