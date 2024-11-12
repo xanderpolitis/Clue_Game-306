@@ -16,13 +16,20 @@ import java.awt.GridLayout;
 public class ClueControlGUI extends JPanel{
 
 	int roll = 1;
-
+	String rollStr = Integer.toString(roll);
+	
 	String guess  = "I have no guess!";
 	String result = "So you have nothing?";
-	
 	Player player = new ComputerPlayer( "Col. Mustard", Color.ORANGE, 0, 0);
-
 	Color backround = player.getColor();
+	
+	//Make all update-able Text Fields or any other ones GLOBAL
+	
+	JTextField guessResult = new JTextField(result);
+	JTextField playerText = new JTextField(this.player.getName());
+	JTextField curGuess = new JTextField(guess);
+	JTextField rollNum = new JTextField(rollStr);
+	
 
 	public ClueControlGUI() {
 		setLayout(new GridLayout(2,0));
@@ -34,14 +41,23 @@ public class ClueControlGUI extends JPanel{
 		this.roll = roll;
 		this.player = player;
 		this.backround = player.getColor();
+		this.rollStr = Integer.toString(roll);
+		
+		playerText.setText(player.getName());
+		rollNum.setText(rollStr);
+		playerText.setBackground(backround);
 	}
 	
 	public void setGuess(String guess) {
 		this.guess = guess;
+		
+		curGuess.setText(guess);
 	}
 	
-	public void setGuessResult(String guessResult) {
-		this.result = guessResult;
+	public void setGuessResult(String result) {
+		this.result = result;
+		
+		guessResult.setText(result);
 	}
 
 	public JPanel createNorth() {
@@ -62,7 +78,7 @@ public class ClueControlGUI extends JPanel{
 		JPanel northPanel1 = new JPanel(new GridLayout(2,0));
 
 		JLabel label = new JLabel("Whose turn?");
-		JTextField playerText = new JTextField(this.player.getName());
+
 		playerText.setEditable(false);
 		playerText.setBackground(backround);
 
@@ -77,7 +93,7 @@ public class ClueControlGUI extends JPanel{
 		JPanel northPanel2 = new JPanel();
 
 		JLabel label = new JLabel("Roll:");
-		JTextField rollNum = new JTextField();
+
 		rollNum.setEditable(false);
 
 		northPanel2.add(label, BorderLayout.NORTH);
@@ -98,7 +114,6 @@ public class ClueControlGUI extends JPanel{
 	public JPanel createSouth1() {
 		JPanel southPanel1 = new JPanel();
 		
-		JTextField curGuess = new JTextField(guess);
 		curGuess.setEditable(false);
 
 		southPanel1.add(curGuess, BorderLayout.SOUTH);
@@ -110,7 +125,6 @@ public class ClueControlGUI extends JPanel{
 	public JPanel createSouth2() {
 		JPanel southPanel2 = new JPanel();
 		
-		JTextField guessResult = new JTextField(result);
 		guessResult.setEditable(false);
 		
 		southPanel2.add(guessResult, BorderLayout.SOUTH);
@@ -132,9 +146,9 @@ public class ClueControlGUI extends JPanel{
 		// Now let's view it
 		frame.setVisible(true);
 
-//		panel.setTurn(new ComputerPlayer( "Col. Mustard", Color.ORANGE, 0, 0), 5);
-//		this.setGuess( "I have no guess!");
-//		this.setGuessResult( "So you have nothing?");
+		gui.setTurn(new ComputerPlayer( "Mr. Bad guy", Color.GREEN, 0, 0), 5);
+		gui.setGuess( "I have no guess!");
+		gui.setGuessResult( "So you have nothing?");
 	}
 
 }
