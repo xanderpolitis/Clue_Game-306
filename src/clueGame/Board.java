@@ -339,4 +339,8 @@ public class Board {
 	public Set<BoardCell> getTargets(){
 		return targets;
 	}
+	
+//	public boolean checkAccusation(Solution accusation) {
+//		return this.theAnswer.equals(accusation);
+//	}
 }

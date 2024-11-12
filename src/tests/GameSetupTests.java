@@ -10,8 +10,9 @@ public class GameSetupTests {
 	
 	@BeforeEach
 	public void setup() {
-		board = new Board();
-		board.initialize();
+    	board = Board.getInstance();
+        board.setConfigFiles("ClueLayout.csv", "room_names.txt");
+			board.initialize();
 	}
 	
 	@Test
