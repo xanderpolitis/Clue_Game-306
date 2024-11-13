@@ -23,6 +23,7 @@ public class Board {
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 
+	private Solution theAnswer;
 
 
 	ArrayList<String[]> layout = new ArrayList<>();
@@ -340,7 +341,11 @@ public class Board {
 		return targets;
 	}
 	
-//	public boolean checkAccusation(Solution accusation) {
-//		return this.theAnswer.equals(accusation);
-//	}
+	public void setSolution(Solution solution) {
+		this.theAnswer = solution;
+	}
+	
+	public boolean checkAccusation(Solution accusation) {
+		return this.theAnswer.equals(accusation);
+	}
 }
