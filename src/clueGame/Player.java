@@ -68,25 +68,8 @@ public abstract class Player {
  protected List<Card> hand = new ArrayList<>();
  protected List<Card> seenCards = new ArrayList<>();
 
- 	String name;
-	Color color;
-	int row;
-	int col;
-	
-	public Player(String name, Color color, int row, int col) {
-		this.name = name;
-		this.color = color; 
-		this.row = row; 
-		this.col = col;
-	}
-	
-	public String getName() {
-		return name;
-	}
- 
  public void addCard(Card card) {
      hand.add(card);
-     card.setColor(color);
  }
 
  public void addSeenCard(Card card) {
@@ -109,19 +92,8 @@ public abstract class Player {
          return matchingCards.get(rand.nextInt(matchingCards.size()));
      }
  }
- public List<Card> getHand(){
-	 return hand;
- }
 
- public Color getColor()
- {
-	 return this.color;
- }
- public void setColor(Color c) {
-	 this.color = c;
- }
- 
- public abstract void makeMove();  // To be implemented by subclasses
+ public abstract void makeMove();
 }
 
 

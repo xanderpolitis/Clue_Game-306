@@ -10,7 +10,7 @@ public class HumanPlayer extends Player {
 	Color color;
 	int row;
 	int col;
-
+	
 	public HumanPlayer(String name, Color color, int row, int col) {
 		super(name, color, row, col);
 	}
@@ -32,4 +32,5 @@ public class HumanPlayer extends Player {
 		System.out.println("Make your move: [1] Move, [2] Make a suggestion, [3] End turn");
 		// Capture and process player input for moves
 	}
+
 }
