@@ -93,7 +93,7 @@ public abstract class Player {
      }
  }
 
- public abstract void makeMove();  // To be implemented by subclasses
+ public abstract void makeMove();
 }
 
 
