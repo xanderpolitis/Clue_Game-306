@@ -25,6 +25,9 @@ public class Board {
 
 	protected static ArrayList<Player> players = new ArrayList<>();
 	protected static Set<Card> seenCards = new HashSet<Card>();
+	
+	private Solution theAnswer;
+
 
 	ArrayList<String[]> layout = new ArrayList<>();
 
@@ -341,7 +344,27 @@ public class Board {
 		return targets;
 	}
 	
-//	public boolean checkAccusation(Solution accusation) {
-//		return this.theAnswer.equals(accusation);
-//	}
+	public void addPlayer(Player player) {
+        players.add(player);
+    }
+	
+	public void setSolution(Solution solution) {
+		this.theAnswer = solution;
+	}
+	
+	public boolean checkAccusation(Solution accusation) {
+		return this.theAnswer.equals(accusation);
+	}
+	
+    public Card handleSuggestion(Solution suggestion, Player accuser) {
+        for (Player player : players) {
+            if (player != accuser) {
+                Card disprovingCard = player.disproveSuggestion(suggestion);
+                if (disprovingCard != null) {
+                    return disprovingCard;
+                }
+            }
+        }
+        return null;
+    }
 }

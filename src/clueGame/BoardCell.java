@@ -20,6 +20,8 @@ public class BoardCell {
     private boolean isRoomCenter;
     private boolean isRoomLabel;
     private boolean occupied;
+    private Room room;
+    private boolean isRoom;
 
     
  
@@ -31,6 +33,8 @@ public class BoardCell {
 		this.adjList = new HashSet<>();
 		this.isRoomCenter = false;
 		this.occupied = false;
+		this.room = room;
+		this.isRoom = (room != null);
 	}
     
     public void addAdjacency(BoardCell cell) {
@@ -105,6 +109,14 @@ public class BoardCell {
 	
 	public boolean getOccupied() {
 		return occupied;
+	}
+	
+	public boolean isRoom() {
+		return isRoom;
+	}
+	
+	public Room getRoom() {
+		return room;
 	}
 
 }
