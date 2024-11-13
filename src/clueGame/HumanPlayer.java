@@ -20,6 +20,5 @@ public class HumanPlayer extends Player {
  @Override
  public void makeMove() {
      System.out.println("Make your move: [1] Move, [2] Make a suggestion, [3] End turn");
-     // Capture and process player input for moves
  }
 }
