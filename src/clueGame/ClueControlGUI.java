@@ -3,7 +3,7 @@ package clueGame;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JComboBox;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -146,6 +146,7 @@ public class ClueControlGUI extends JPanel{
 		// Now let's view it
 		frame.setVisible(true);
 
+		//change these later and move this to main
 		gui.setTurn(new ComputerPlayer( "Mr. Bad guy", Color.GREEN, 0, 0), 5);
 		gui.setGuess( "I have no guess!");
 		gui.setGuessResult( "So you have nothing?");

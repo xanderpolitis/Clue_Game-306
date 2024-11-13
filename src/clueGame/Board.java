@@ -23,7 +23,8 @@ public class Board {
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 
-
+	protected static ArrayList<Player> players = new ArrayList<>();
+	protected static Set<Card> seenCards = new HashSet<Card>();
 
 	ArrayList<String[]> layout = new ArrayList<>();
 

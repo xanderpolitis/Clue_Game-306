@@ -1,8 +1,11 @@
 package clueGame;
 
+import java.awt.Color;
+
 public class Card {
 	private String cardName;
 	private CardType type;
+	private Color color;
 	
 	public Card(String cardName, CardType type) {
 		this.cardName = cardName;
@@ -15,6 +18,14 @@ public class Card {
 	
 	public CardType getType() {
 		return type;
+	}
+	
+	public void setColor(Color c) {
+		color = c;
+	}
+	
+	public Color getColor() {
+		return color;
 	}
 	
 	@Override
