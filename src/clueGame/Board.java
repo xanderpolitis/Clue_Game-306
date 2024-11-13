@@ -24,7 +24,6 @@ public class Board {
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 
 	protected static ArrayList<Player> players = new ArrayList<>();
-	protected static Set<Card> seenCards = new HashSet<Card>();
 	
 	private Solution theAnswer;
 

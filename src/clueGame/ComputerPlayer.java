@@ -1,12 +1,17 @@
 package clueGame;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ComputerPlayer extends Player {
- private Room currentRoom;
+	private Room currentRoom;
 
+ 	public ComputerPlayer(String name, Color color, int row, int col) {
+		super(name, color, row, col);
+	}
+ 
  public void setCurrentRoom(Room room) {
      this.currentRoom = room;
  }

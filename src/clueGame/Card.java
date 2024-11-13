@@ -8,7 +8,7 @@ public class Card {
 
  private String name;
  private CardType type;
- private Color color
+ private Color color;
 
  public Card(String name, CardType type) {
      this.name = name;
