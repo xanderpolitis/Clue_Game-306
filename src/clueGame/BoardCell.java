@@ -22,10 +22,6 @@ public class BoardCell {
     private boolean occupied;
     private Room room;
     private boolean isRoom;
-
-    
- 
-
     
     public BoardCell(int row, int col) {
 		this.row = row;

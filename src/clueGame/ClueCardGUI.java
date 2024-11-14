@@ -44,6 +44,7 @@ public class ClueCardGUI extends JPanel{
 					empty = false;
 					JTextField person = new JTextField(card.getName());
 					person.setBackground(card.getColor());
+					person.setEditable(false);
 
 					peoplePanel.add(person);
 				}
@@ -68,6 +69,7 @@ public class ClueCardGUI extends JPanel{
 					empty = false;
 					JTextField weapon = new JTextField(card.getName());
 					weapon.setBackground(card.getColor());
+					weapon.setEditable(false);
 
 					peoplePanel.add(weapon);
 				}
@@ -96,6 +98,7 @@ public class ClueCardGUI extends JPanel{
 					empty = false;
 					JTextField room = new JTextField(card.getName());
 					room.setBackground(card.getColor());
+					room.setEditable(false);
 
 					roomsPanel.add(room);
 				}
@@ -119,6 +122,7 @@ public class ClueCardGUI extends JPanel{
 					empty = false;
 					JTextField room = new JTextField(card.getName());
 					room.setBackground(card.getColor());
+					room.setEditable(false);
 
 					roomsPanel.add(room);
 				}
@@ -147,6 +151,7 @@ public class ClueCardGUI extends JPanel{
 					empty = false;
 					JTextField weapon = new JTextField(card.getName());
 					weapon.setBackground(card.getColor());
+					weapon.setEditable(false);
 
 					weaponsPanel.add(weapon);
 				}
@@ -171,6 +176,7 @@ public class ClueCardGUI extends JPanel{
 					empty = false;
 					JTextField weapon = new JTextField(card.getName());
 					weapon.setBackground(card.getColor());
+					weapon.setEditable(false);
 
 					weaponsPanel.add(weapon);
 				}
@@ -206,7 +212,6 @@ public class ClueCardGUI extends JPanel{
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -230,6 +235,5 @@ public class ClueCardGUI extends JPanel{
 		Board.players.getFirst().seenCards.add(new Card("A weapon" , Card.CardType.WEAPON));
 		
 		gui.updateCardPanels();
-
 	}
 }
