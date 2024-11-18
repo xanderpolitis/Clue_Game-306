@@ -74,27 +74,4 @@ public abstract class Player {
 		g.drawOval(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
 		g.fillOval(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
 	}
-	
-	// Static method to read players from file
-    public static List<Player> loadPlayersFromFile(String filename) {
-        List<Player> players = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 4) {
-                    String name = parts[0];
-                    String color = parts[1];
-                    int row = Integer.parseInt(parts[2]);
-                    int col = Integer.parseInt(parts[3]);
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
-        }
-        return players;
-    }
 }
-
-
-

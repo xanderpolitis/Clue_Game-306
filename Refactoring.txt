@@ -8,5 +8,5 @@
 private board requirements
 8. In Board we removed a lot of redundant code that was used for previous passing tests but then changed it
 to fit and work with the new requirements. 
-9. We changed the way we handled the exception in the setups and the initialize functions.
+9. Made it so we only need one config file
 10. We changed the name of a few variables to shorten and conform with standards. 

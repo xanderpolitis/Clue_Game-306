@@ -205,7 +205,7 @@ public class Board {
 				}
 				String[] parts = scan.split(", ");
 				if (parts.length < 3) {
-					//throw new BadConfigFormatException();
+					throw new BadConfigFormatException();
 				}
 				if (parts[0].equals("Room")) {
 					Room room = new Room(parts[1]);
