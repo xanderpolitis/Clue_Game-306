@@ -1,10 +1,11 @@
 1. We added comments to blocks of methods and functions explaining what they do.
 2. In Board and the Loadsetupconfig we changed a part of the function that was originally >3 to !3
-3. In loadlayoutconfig we 
-4. We removed a lot of our test tebug code like the print lines and other testing code that was not needed.
-5. We finished Adj lists so that it meets requirements.
-6. We finished calc targets so that it meets requirements. 
-7. We 
+3. 
+4. We removed a lot of our test debug code like the print lines and other testing code that was not needed.
+5. Made ClueGame no longer depend on Board being public in order to draw it
+6. Fixed name of BoardCardGUI to be correct
+7. We changed Board.players in ClueCardGUI to Board.getInstance().getPlayers to meet
+private board requirements
 8. In Board we removed a lot of redundant code that was used for previous passing tests but then changed it
 to fit and work with the new requirements. 
 9. We changed the way we handled the exception in the setups and the initialize functions.

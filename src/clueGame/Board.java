@@ -4,6 +4,7 @@ import java.util.*;
 
 import experiment.TestBoardCell;
 
+import java.awt.Graphics;
 import java.io.*;
 
 
@@ -23,7 +24,7 @@ public class Board {
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 
-	protected static ArrayList<Player> players = new ArrayList<>();
+	protected ArrayList<Player> players = new ArrayList<>();
 	
 	private Solution theAnswer;
 
@@ -43,6 +44,12 @@ public class Board {
 
 	public void initHelper(BoardCell cell, String letters) {
 		cell.setInitial(letters.charAt(0));
+		if(letters.charAt(0) != 'X' && letters.charAt(0) != 'W') {
+			//set as a room
+			cell.setRoom(rooms.get(cell.getInitial()));
+			
+		}
+		
 		if (letters.length() == 2) {
 			switch(letters.charAt(1)) {
 			case '^':
@@ -90,7 +97,8 @@ public class Board {
 				initHelper(grid[i][j], layout.get(i)[j]);
 			}
 		}
-
+		
+		//ADDS ADJACENCY
 		for(int i = 0; i< numRows;i++) {
 			for(int j =0; j< numColumns; j++) {
 				BoardCell cell = grid[i][j];
@@ -347,6 +355,10 @@ public class Board {
         players.add(player);
     }
 	
+	public ArrayList<Player> getPlayers(){
+		return players;
+	}
+	
 	public void setSolution(Solution solution) {
 		this.theAnswer = solution;
 	}
@@ -366,4 +378,35 @@ public class Board {
         }
         return null;
     }
+
+    public void paintComponent(Graphics g) {
+    	ArrayList<BoardCell> labelList = new ArrayList<>();
+    	ArrayList<BoardCell> doorList = new ArrayList<>();
+    	for (BoardCell[] cellList:grid) {
+    		for(BoardCell cell:cellList) {
+    			cell.paintComponent(g);
+    			if(cell.isDoorway()) {
+    				doorList.add(cell);
+    			}
+    			if(cell.isLabel()) {
+    				labelList.add(cell);
+    			}
+    		}
+    	}
+    	//DRAW ALL LABELS
+    	for (BoardCell cell:labelList) {
+    		cell.paintLabel(g);
+    	}
+    	
+    	//DRAW ALL DOORS
+    	for (BoardCell cell:doorList) {
+    		cell.paintDoor(g);
+    	}
+    	
+    	//DRAW ALL PLAYERS
+    	for (Player p:players) {
+    		p.paintComponent(g);
+    	}
+    }
+
 }

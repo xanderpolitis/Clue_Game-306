@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +15,7 @@ public class BoardCell {
     private DoorDirection doorDirection = DoorDirection.NONE;
     public char specialCharacter;
     private char secretPassage;
+    private String label = "A ROOM";
     
     private Set<BoardCell> adjList;
     
@@ -30,7 +33,7 @@ public class BoardCell {
 		this.isRoomCenter = false;
 		this.occupied = false;
 		this.room = room;
-		this.isRoom = (room != null);
+		this.isRoom = (room != null); //fix this line 
 	}
     
     public void addAdjacency(BoardCell cell) {
@@ -66,6 +69,8 @@ public class BoardCell {
         return isRoomLabel;
     }
     
+    //TODO
+    // THIS FUNCTION NEEDS TO ADD A STRING THAT IS THE LABEL FIX IN BOARD
     public void setLabel() {
         isRoomLabel = true;
     }
@@ -113,6 +118,51 @@ public class BoardCell {
 	
 	public Room getRoom() {
 		return room;
+	}
+	
+	public void setRoom(Room r) {
+		room = r;
+		isRoom = true;
+		label = room.getName();
+	}
+	
+	//this is painting all of the cells individually
+	public void paintComponent(Graphics g){
+		if(this.isRoom) {
+			g.setColor(Color.DARK_GRAY);
+			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+		} else if (this.initial != 'X') {
+			g.setColor(Color.YELLOW);
+			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+		} else {
+			g.setColor(Color.BLACK);
+			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+		}
+	}
+	public void paintDoor(Graphics g) {
+			g.setColor(Color.BLUE);
+			switch(doorDirection) {
+			case DoorDirection.UP:
+				g.drawRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.ySize, BoardGUI.ySize/9);
+				break;
+			case DoorDirection.RIGHT:
+				g.drawRect((col+1)*BoardGUI.xSize, (row)*BoardGUI.ySize, BoardGUI.xSize/9, BoardGUI.xSize);
+				break;
+			case DoorDirection.LEFT:
+				g.drawRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize/9, BoardGUI.xSize);
+				break;
+			case DoorDirection.DOWN:
+				g.drawRect((col)*BoardGUI.xSize, (row+1)*BoardGUI.ySize, BoardGUI.ySize, BoardGUI.ySize/9);
+				break;
+			default:
+				break;	
+			}
+	}
+			
+	
+	public void paintLabel(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.drawChars(this.label.toCharArray(), 0, this.label.length(), col*BoardGUI.xSize, row*BoardGUI.ySize);
 	}
 
 }

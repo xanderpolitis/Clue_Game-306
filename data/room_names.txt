@@ -1,12 +1,12 @@
 // Xander Politis, Mateo Rivera
 // Rooms and room cards
 Room, Dungeon, D
-Room, Cambers, C
+Room, Chambers, C
 Room, Rooftop, R
 Room, Food Hall, F
-Room, HospitalWing, H 
+Room, Hospital Wing, H 
 Room, Greenhouse, G
-Room, Aroumory, A
+Room, Armory, A
 Room, Piano Room, P
 Room, Observatory, O
 // Other spaces on board
