@@ -1,0 +1,6 @@
+King, Blue, 30, 17
+Queen, Red, 27, 0
+Knight, Orange, 13, 0
+Rook, Pink, 0, 21
+Bishop, Brown, 9, 30 
+Pawn, Black, 19, 30
