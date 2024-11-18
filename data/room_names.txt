@@ -12,3 +12,12 @@ Room, Observatory, O
 // Other spaces on board
 Space, Unused, Z
 Space, Walkway, W
+//PLAYERS
+Player, King, BLUE, 30, 17
+Player, Queen, RED, 27, 0
+Player, Knight, ORANGE, 13, 0
+Player, Rook, PINK, 0, 21
+Player, Bishop, WHITE, 9, 30
+Player, Pawn, BLACK, 19, 30
+//Weapons
+Weapon, Sword, null, null

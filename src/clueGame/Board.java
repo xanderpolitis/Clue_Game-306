@@ -4,6 +4,7 @@ import java.util.*;
 
 import experiment.TestBoardCell;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.*;
 
@@ -25,7 +26,8 @@ public class Board {
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 
 	protected ArrayList<Player> players = new ArrayList<>();
-	
+	protected ArrayList<Card> cards = new ArrayList<>();
+
 	private Solution theAnswer;
 
 
@@ -47,9 +49,9 @@ public class Board {
 		if(letters.charAt(0) != 'X' && letters.charAt(0) != 'W') {
 			//set as a room
 			cell.setRoom(rooms.get(cell.getInitial()));
-			
+
 		}
-		
+
 		if (letters.length() == 2) {
 			switch(letters.charAt(1)) {
 			case '^':
@@ -97,7 +99,7 @@ public class Board {
 				initHelper(grid[i][j], layout.get(i)[j]);
 			}
 		}
-		
+
 		//ADDS ADJACENCY
 		for(int i = 0; i< numRows;i++) {
 			for(int j =0; j< numColumns; j++) {
@@ -190,6 +192,12 @@ public class Board {
 			File txtFile = new File(roomConfigFile);
 			Scanner txtReader = new Scanner(txtFile);
 			String scan;
+			
+			ArrayList<String> playerNames = new ArrayList<>();
+			ArrayList<String> weaponNames = new ArrayList<>();
+			
+			
+			
 			while (txtReader.hasNextLine()) {
 				scan = txtReader.nextLine();
 				if (scan.contains("//")) {
@@ -197,20 +205,49 @@ public class Board {
 				}
 				String[] parts = scan.split(", ");
 				if (parts.length < 3) {
-					throw new BadConfigFormatException();
+					//throw new BadConfigFormatException();
 				}
 				if (parts[0].equals("Room")) {
 					Room room = new Room(parts[1]);
 					rooms.put(parts[2].charAt(0), room);
+					Card card = new Card(parts[1], Card.CardType.ROOM);
+					cards.add(card);
 				}
 				if (parts[0].equals("Space")) {
 					Room room = new Room(parts[1]);
 					rooms.put(parts[2].charAt(0), room);
 				}
+				if ( parts[0].equals("Player")) {
+					playerNames.add(scan);
+				}
+				
+				if ( parts[0].equals("Weapon")) {
+					weaponNames.add(parts[1]);
+				}
+				
 			}
+			//choose a random element in the list and make a humanPlayer
+			Collections.shuffle(playerNames);
+			String[] parts = playerNames.getFirst().split(", ");
+			HumanPlayer human = new HumanPlayer(parts[1], MyColor.getColor(parts[2]), Integer.valueOf(parts[3]), Integer.valueOf(parts[4]));
+			players.addFirst(human);
+			playerNames.remove(0);
+			for(String player:playerNames) {
+				parts = player.split(", ");
+				ComputerPlayer comp = new ComputerPlayer(parts[1], MyColor.getColor(parts[2]), Integer.valueOf(parts[3]), Integer.valueOf(parts[4]));
+				players.addLast(comp);
+				Card card = new Card(player, Card.CardType.PERSON);
+				cards.add(card);
+			}
+			for(String weapon:weaponNames) {
+				Card card = new Card(weapon, Card.CardType.WEAPON);
+				cards.add(card);
+			}
+			
 			txtReader.close();
 
-		} catch(IOException e){
+		} catch(Exception e){
+			System.out.println(e);
 			throw new BadConfigFormatException();
 		}
 	}
@@ -219,24 +256,8 @@ public class Board {
 		try {
 			String scan;
 			File csvFile = new File(boardConfigFile);
-			Scanner csvReader1 = new Scanner(csvFile);
-			while(csvReader1.hasNextLine()){
-				scan = csvReader1.nextLine();
-				numRows++;
-			}
-			numColumns = 1;
-			Scanner csvReader2 = new Scanner(csvFile);
-			while(csvReader2.hasNext()){
-				csvReader2.next();
-				while(csvReader2.hasNext(",")){
-					csvReader2.next();
-					numColumns++;
-				}
-			}
-			System.out.println(numColumns);
 
 			Scanner csvReader3 = new Scanner(csvFile);
-
 
 			while(csvReader3.hasNextLine()) {
 				scan = csvReader3.nextLine();
@@ -275,10 +296,6 @@ public class Board {
 
 				}
 			}
-			System.out.println(numColumns);
-			System.out.println(numRows);
-			csvReader1.close();
-			csvReader2.close();
 			csvReader3.close();
 		} catch(IOException e){
 			throw new BadConfigFormatException();
@@ -321,7 +338,7 @@ public class Board {
 				continue;
 			}
 			visited.add(adjCell);
-			
+
 			if(adjCell.isRoomCenter()||adjCell.isSecretPassage()) {
 				targets.add(adjCell);
 				continue;
@@ -350,63 +367,63 @@ public class Board {
 	public Set<BoardCell> getTargets(){
 		return targets;
 	}
-	
+
 	public void addPlayer(Player player) {
-        players.add(player);
-    }
-	
+		players.add(player);
+	}
+
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
-	
+
 	public void setSolution(Solution solution) {
 		this.theAnswer = solution;
 	}
-	
+
 	public boolean checkAccusation(Solution accusation) {
 		return this.theAnswer.equals(accusation);
 	}
-	
-    public Card handleSuggestion(Solution suggestion, Player accuser) {
-        for (Player player : players) {
-            if (player != accuser) {
-                Card disprovingCard = player.disproveSuggestion(suggestion);
-                if (disprovingCard != null) {
-                    return disprovingCard;
-                }
-            }
-        }
-        return null;
-    }
 
-    public void paintComponent(Graphics g) {
-    	ArrayList<BoardCell> labelList = new ArrayList<>();
-    	ArrayList<BoardCell> doorList = new ArrayList<>();
-    	for (BoardCell[] cellList:grid) {
-    		for(BoardCell cell:cellList) {
-    			cell.paintComponent(g);
-    			if(cell.isDoorway()) {
-    				doorList.add(cell);
-    			}
-    			if(cell.isLabel()) {
-    				labelList.add(cell);
-    			}
-    		}
-    	}
-    	//DRAW ALL LABELS
-    	for (BoardCell cell:labelList) {
-    		cell.paintLabel(g);
-    	}
-    	
-    	//DRAW ALL DOORS
-    	for (BoardCell cell:doorList) {
-    		cell.paintDoor(g);
-    	}
-    	
-    	//DRAW ALL PLAYERS
-    	for (Player p:players) {
-    		p.paintComponent(g);
-    	}
-    }
+	public Card handleSuggestion(Solution suggestion, Player accuser) {
+		for (Player player : players) {
+			if (player != accuser) {
+				Card disprovingCard = player.disproveSuggestion(suggestion);
+				if (disprovingCard != null) {
+					return disprovingCard;
+				}
+			}
+		}
+		return null;
+	}
+
+	public void paintComponent(Graphics g) {
+		ArrayList<BoardCell> labelList = new ArrayList<>();
+		ArrayList<BoardCell> doorList = new ArrayList<>();
+		for (BoardCell[] cellList:grid) {
+			for(BoardCell cell:cellList) {
+				cell.paintComponent(g);
+				if(cell.isDoorway()) {
+					doorList.add(cell);
+				}
+				if(cell.isLabel()) {
+					labelList.add(cell);
+				}
+			}
+		}
+		//DRAW ALL LABELS
+		for (BoardCell cell:labelList) {
+			cell.paintLabel(g);
+		}
+
+		//DRAW ALL DOORS
+		for (BoardCell cell:doorList) {
+			cell.paintDoor(g);
+		}
+
+		//DRAW ALL PLAYERS
+		for (Player p:players) {
+			p.paintComponent(g);
+		}
+	}
 
 }

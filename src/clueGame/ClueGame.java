@@ -20,7 +20,6 @@ public class ClueGame extends JFrame {
 	public BoardGUI boardPanel = new BoardGUI();
 	public ClueCardGUI cardPanel = new ClueCardGUI();
 	public ClueControlGUI controlPanel = new ClueControlGUI();
-	//cardpannel.setPreferedSize(x, y)
 	
 	
 	public ClueGame() {
@@ -30,7 +29,7 @@ public class ClueGame extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue");
-		setSize(960, 900);
+		setSize(960, 860);
 		setVisible(true);
 	}
 	

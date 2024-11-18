@@ -1,6 +1,6 @@
 1. We added comments to blocks of methods and functions explaining what they do.
 2. In Board and the Loadsetupconfig we changed a part of the function that was originally >3 to !3
-3. 
+3. We removed the 3 original scannars used for the loadConfigFile function and made it into one scanner
 4. We removed a lot of our test debug code like the print lines and other testing code that was not needed.
 5. Made ClueGame no longer depend on Board being public in order to draw it
 6. Fixed name of BoardCardGUI to be correct
