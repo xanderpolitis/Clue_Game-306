@@ -41,6 +41,8 @@ public class BoardGUI extends JPanel{
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		xSize = getWidth()/30;
+		ySize = getHeight()/30;
 		Board.getInstance().paintComponent(g);
 	}
 	

@@ -7,7 +7,7 @@ Room, Food Hall, F
 Room, Hospital Wing, H 
 Room, Greenhouse, G
 Room, Armory, A
-Room, Piano Room, P
+Room,  Music, M
 Room, Observatory, O
 // Other spaces on board
 Space, Unused, Z

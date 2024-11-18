@@ -129,11 +129,13 @@ public class BoardCell {
 	//this is painting all of the cells individually
 	public void paintComponent(Graphics g){
 		if(this.isRoom) {
-			g.setColor(Color.DARK_GRAY);
+			g.setColor(Color.GRAY);
 			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
 		} else if (this.initial != 'X') {
 			g.setColor(Color.YELLOW);
 			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+			g.setColor(Color.BLACK);
+			g.drawRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
 		} else {
 			g.setColor(Color.BLACK);
 			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
@@ -143,16 +145,16 @@ public class BoardCell {
 			g.setColor(Color.BLUE);
 			switch(doorDirection) {
 			case DoorDirection.UP:
-				g.drawRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.ySize, BoardGUI.ySize/9);
+				g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.ySize, BoardGUI.ySize/9);
 				break;
 			case DoorDirection.RIGHT:
-				g.drawRect((col+1)*BoardGUI.xSize, (row)*BoardGUI.ySize, BoardGUI.xSize/9, BoardGUI.xSize);
+				g.fillRect((col+1)*BoardGUI.xSize, (row)*BoardGUI.ySize, BoardGUI.xSize/9, BoardGUI.xSize);
 				break;
 			case DoorDirection.LEFT:
-				g.drawRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize/9, BoardGUI.xSize);
+				g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize/9, BoardGUI.xSize);
 				break;
 			case DoorDirection.DOWN:
-				g.drawRect((col)*BoardGUI.xSize, (row+1)*BoardGUI.ySize, BoardGUI.ySize, BoardGUI.ySize/9);
+				g.fillRect((col)*BoardGUI.xSize, (row+1)*BoardGUI.ySize, BoardGUI.ySize, BoardGUI.ySize/9);
 				break;
 			default:
 				break;	

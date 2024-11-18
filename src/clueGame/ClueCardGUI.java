@@ -149,7 +149,7 @@ public class ClueCardGUI extends JPanel{
 			for(Card card:Board.getInstance().getPlayers().getFirst().getHand()) {
 				if(card.getType() == Card.CardType.WEAPON) {
 					empty = false;
-					JTextField weapon = new JTextField(card.getName());
+					JTextField weapon = new JTextField(card.getName(), 10);
 					weapon.setBackground(card.getColor());
 					weapon.setEditable(false);
 
