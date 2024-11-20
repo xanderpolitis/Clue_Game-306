@@ -29,7 +29,7 @@ public class ClueGame extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue");
-		setSize(960, 860);
+		setSize(993, 860);
 		setVisible(true);
 	}
 	
@@ -42,7 +42,6 @@ public class ClueGame extends JFrame {
 		board.setConfigFiles("ClueLayout.csv", "room_names.txt");
 		board.initialize();
 		//TEST CODE
-		Board.getInstance().getPlayers().add(new HumanPlayer( "Mr. Bad guy", Color.GREEN, 17, 07));
 		Board.getInstance().getPlayers().getFirst().addCard(new Card("A room" , Card.CardType.ROOM));
 		Board.getInstance().getPlayers().getFirst().addCard(new Card("A weapon" , Card.CardType.WEAPON));
 		Board.getInstance().getPlayers().getFirst().addCard(new Card("A person" , Card.CardType.PERSON));

@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,14 @@ public class BoardCell {
     private boolean occupied;
     private Room room;
     private boolean isRoom;
+    
+    private static boolean green = false;
+    private final static Color greenColor = new Color(122, 148, 90);
+    private final static Color greyColor = new Color(235, 236, 211);
+    private final static Color roomColor = new Color(220, 190, 107);
+    private final static Color targetColor = new Color(158, 247, 230);
+    private final static Color textColor = new Color(10, 10, 10);
+    
     
     public BoardCell(int row, int col) {
 		this.row = row;
@@ -128,11 +137,18 @@ public class BoardCell {
 	
 	//this is painting all of the cells individually
 	public void paintComponent(Graphics g){
+		if(green) {
+			g.setColor(greenColor);
+			green = false;
+		} else {
+			g.setColor(greyColor);
+			green = true;
+		}
+		
 		if(this.isRoom) {
-			g.setColor(Color.GRAY);
+			g.setColor(roomColor);
 			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
-		} else if (this.initial != 'X') {
-			g.setColor(Color.YELLOW);
+		} else if (this.initial != 'X') {	
 			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
 			g.setColor(Color.BLACK);
 			g.drawRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
@@ -141,6 +157,7 @@ public class BoardCell {
 			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
 		}
 	}
+	
 	public void paintDoor(Graphics g) {
 			g.setColor(Color.BLUE);
 			switch(doorDirection) {
@@ -161,9 +178,9 @@ public class BoardCell {
 			}
 	}
 			
-	
 	public void paintLabel(Graphics g) {
-		g.setColor(Color.BLUE);
+		g.setColor(textColor);
+		g.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		g.drawChars(this.label.toCharArray(), 0, this.label.length(), col*BoardGUI.xSize, row*BoardGUI.ySize);
 	}
 
