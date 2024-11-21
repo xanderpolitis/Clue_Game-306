@@ -47,6 +47,14 @@ public class BoardGUI extends JPanel{
 	}
 	
 	
+	
+	public void updatePanel() {
+		this.invalidate();
+		this.validate();
+		repaint();
+	}
+	
+	
 	public static void main(String[] args) {
 		
 

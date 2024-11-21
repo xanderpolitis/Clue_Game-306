@@ -2,9 +2,8 @@ package clueGame;
 
 import java.util.*;
 
-import experiment.TestBoardCell;
+import javax.swing.JFrame;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.*;
 
@@ -12,26 +11,43 @@ import java.io.*;
 
 public class Board {
 	private static Board theInstance = new Board();
+
+	static ClueGame frame = null;
+
+
 	private BoardCell[][] grid;
+	ArrayList<String[]> layout = new ArrayList<>();
 	private int numRows = 0;
 	private int numColumns = 0;
 
+
 	private Map<Character, Room> rooms = new HashMap<>();
+
 
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private static String datapath = "data/";
 
+
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
+
 
 	protected ArrayList<Player> players = new ArrayList<>();
 	protected ArrayList<Card> cards = new ArrayList<>();
 
+
+	//Variables to do with next and the ui
+	public int roll = 1;
+	public int currPlayer = 0;
+	public String guess  = "I have no guess!";
+	public String result = "So you have nothing?";
+
+	private boolean finished = true;
+
+
 	private Solution theAnswer;
 
-
-	ArrayList<String[]> layout = new ArrayList<>();
 
 	private Board() {}
 
@@ -49,7 +65,6 @@ public class Board {
 		if(letters.charAt(0) != 'X' && letters.charAt(0) != 'W') {
 			//set as a room
 			cell.setRoom(rooms.get(cell.getInitial()));
-
 		}
 
 		if (letters.length() == 2) {
@@ -162,9 +177,51 @@ public class Board {
 				}
 			}
 		}
+		//TODO
+		//GIVE EVERYONE THEIR CARDS HERE
+		setupCards();
+		frame = new ClueGame();
 	}
 
 
+	public void setupCards() {
+		boolean room = false;
+		boolean weapon = false;
+		boolean person = false;
+		String personString = null;
+		String weaponString = null;
+		String roomString = null;
+		//setup theAnswer
+		for (Card card:cards) {
+			if(room && person && weapon) {break;}
+			if(card.getType() == Card.CardType.PERSON && !person) {
+				person = true;
+				personString = card.getName();
+			}
+			if(card.getType() == Card.CardType.WEAPON && !weapon) {
+				weapon = true;
+				weaponString = card.getName();
+			}
+			if(card.getType() == Card.CardType.ROOM && !room) {
+				room = true;
+				roomString = card.getName();
+			}
+		}
+
+		theAnswer = new Solution(personString, weaponString, roomString);
+
+		for (Player player:players){
+			Collections.shuffle(cards);
+			while(player.hand.size() < 3) {
+				if(!theAnswer.doesContain(cards.getFirst())) {
+					player.addCard(cards.getFirst());
+					cards.remove(0);
+				}else {
+					cards.remove(0);
+				}
+			}
+		}
+	}
 
 	public BoardCell getCell(int col, int row) { // Reactor later
 		return grid[col][row];
@@ -192,12 +249,10 @@ public class Board {
 			File txtFile = new File(roomConfigFile);
 			Scanner txtReader = new Scanner(txtFile);
 			String scan;
-			
+
 			ArrayList<String> playerNames = new ArrayList<>();
 			ArrayList<String> weaponNames = new ArrayList<>();
-			
-			
-			
+
 			while (txtReader.hasNextLine()) {
 				scan = txtReader.nextLine();
 				if (scan.contains("//")) {
@@ -220,30 +275,36 @@ public class Board {
 				if ( parts[0].equals("Player")) {
 					playerNames.add(scan);
 				}
-				
+
 				if ( parts[0].equals("Weapon")) {
 					weaponNames.add(parts[1]);
 				}
-				
 			}
+
 			//choose a random element in the list and make a humanPlayer
 			Collections.shuffle(playerNames);
 			String[] parts = playerNames.getFirst().split(", ");
-			HumanPlayer human = new HumanPlayer(parts[1], MyColor.getColor(parts[2]), Integer.valueOf(parts[3]), Integer.valueOf(parts[4]));
+			HumanPlayer human = new HumanPlayer(
+					parts[1], MyColor.getColor(parts[2]), 
+					Integer.valueOf(parts[3]), Integer.valueOf(parts[4]));
 			players.addFirst(human);
+			Card card = new Card(parts[1], Card.CardType.PERSON);
+			cards.add(card);
 			playerNames.remove(0);
 			for(String player:playerNames) {
 				parts = player.split(", ");
-				ComputerPlayer comp = new ComputerPlayer(parts[1], MyColor.getColor(parts[2]), Integer.valueOf(parts[3]), Integer.valueOf(parts[4]));
+				ComputerPlayer comp = new ComputerPlayer(
+						parts[1], MyColor.getColor(parts[2]),
+						Integer.valueOf(parts[3]), Integer.valueOf(parts[4]));
 				players.addLast(comp);
-				Card card = new Card(player, Card.CardType.PERSON);
+				card = new Card(parts[1], Card.CardType.PERSON);
 				cards.add(card);
 			}
 			for(String weapon:weaponNames) {
-				Card card = new Card(weapon, Card.CardType.WEAPON);
+				card = new Card(weapon, Card.CardType.WEAPON);
 				cards.add(card);
 			}
-			
+
 			txtReader.close();
 
 		} catch(Exception e){
@@ -252,15 +313,16 @@ public class Board {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public void loadLayoutConfig() throws BadConfigFormatException{
 		try {
 			String scan;
 			File csvFile = new File(boardConfigFile);
 
-			Scanner csvReader3 = new Scanner(csvFile);
+			Scanner csvReader = new Scanner(csvFile);
 
-			while(csvReader3.hasNextLine()) {
-				scan = csvReader3.nextLine();
+			while(csvReader.hasNextLine()) {
+				scan = csvReader.nextLine();
 				layout.add(scan.split(","));
 			}	
 
@@ -281,26 +343,24 @@ public class Board {
 						}
 					}else if (cell.length() == 2){
 						char secondChar = j.charAt(1);
-						if (secondChar == '^' || secondChar == 'v' || secondChar == '>'|| secondChar == '<'||
-								secondChar == '*'|| secondChar == '#'){
+						if (secondChar == '^' || secondChar == 'v' || secondChar == '>'||
+								secondChar == '<'||secondChar == '*'|| secondChar == '#'){
 							continue;
-						} else if (secondChar == 'X' || secondChar == 'W' || !rooms.containsKey(secondChar)){
+						} else if (secondChar == 'X' || secondChar == 'W' 
+								|| !rooms.containsKey(secondChar)){
 							throw new BadConfigFormatException();
 						}
 					}
 
-
 					if(numRows != layout.size()) {
 						throw new BadConfigFormatException();
 					}
-
 				}
 			}
-			csvReader3.close();
+			csvReader.close();
 		} catch(IOException e){
 			throw new BadConfigFormatException();
 		}
-
 	}
 
 
@@ -368,6 +428,14 @@ public class Board {
 		return targets;
 	}
 
+	public void setGuess(String g) {
+		guess = g;
+	}
+
+	public void setResult(String r) {
+		guess = r;
+	}
+
 	public void addPlayer(Player player) {
 		players.add(player);
 	}
@@ -401,7 +469,7 @@ public class Board {
 		ArrayList<BoardCell> doorList = new ArrayList<>();
 		for (BoardCell[] cellList:grid) {
 			for(BoardCell cell:cellList) {
-				cell.paintComponent(g);
+				cell.paintCell(g);
 				if(cell.isDoorway()) {
 					doorList.add(cell);
 				}
@@ -422,8 +490,67 @@ public class Board {
 
 		//DRAW ALL PLAYERS
 		for (Player p:players) {
-			p.paintComponent(g);
+			p.paintPlayer(g);
 		}
+	}
+
+	public void next() {
+		
+		Graphics g = null;
+		
+		if(!finished) {
+			return;
+		}
+
+		Random rand = new Random();
+		roll = rand.nextInt(8)+1;
+
+		calcTargets(grid[players.get(currPlayer).row][players.get(currPlayer).col], roll);
+		
+//		for (BoardCell cell:targets){
+//			cell.paintComponent(g);
+//		}
+
+		//////// Updating gui
+
+		frame.updatePanels(theInstance);
+		//
+
+
+	}
+
+	public void nextPlayer() {
+		if(players.get(currPlayer) == players.getLast()) {
+			currPlayer = 0;
+		} else {
+			currPlayer++;
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Board board = Board.getInstance();
+		board.setConfigFiles("ClueLayout.csv", "room_names.txt");
+		board.initialize();
+		//TEST CODE
+		//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A room" , Card.CardType.ROOM));
+		//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A weapon" , Card.CardType.WEAPON));
+		//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A person" , Card.CardType.PERSON));
+		//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A person" , Card.CardType.PERSON));
+		//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A room" , Card.CardType.ROOM));
+		//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A weapon" , Card.CardType.WEAPON));
+		// Create the JPanel and add it to the JFrame
+		//		ClueGame frame = new ClueGame();
+		//DO NOT TOUCH
+		//delete yellow later
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Clue");
+		frame.setVisible(true);
+
+		WelcomeScreen welcome = new WelcomeScreen(); // delete yellow things later
+
+
 	}
 
 }

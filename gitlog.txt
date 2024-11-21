@@ -1,3 +1,95 @@
+commit 5fa5fe8d3115b1fc0834f9aadfbb9bdded747aee
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Wed Nov 20 13:00:32 2024 -0700
+
+    Weapons added, UI looks pretty, epic ovrerall
+
+commit 8ad481f662bc1c0cfa7af7e0e91ef3025399bcdc
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Mon Nov 18 16:39:39 2024 -0700
+
+    no longer need 2 config files
+
+commit 34590769b3b60c82360f3b859e877d738215562e
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Mon Nov 18 16:36:13 2024 -0700
+
+    config files for player 2 are set up for completion, need to add weapons
+
+commit 7aa20e204d09c2a74edd6d865ecea8371b6c27a7
+Merge: b54c69b 72b9a06
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Mon Nov 18 12:55:08 2024 -0700
+
+    Merge branch 'main' of https://github.com/mateoriv/Clue-Game
+
+commit b54c69b39d508a28b51f40535e80d288490cd724
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Mon Nov 18 12:53:49 2024 -0700
+
+    ok i forgot to add the full gui
+
+commit 72b9a06af1dc529c7fc410a514f4e9279898a862
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Mon Nov 18 12:53:10 2024 -0700
+
+    palyer 2 and data file
+
+commit b95c440582194f912d60a557ad60e78e8da9a1e1
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Mon Nov 18 11:42:40 2024 -0700
+
+    HOLY SHITBALLS WE HAVAE A UI AND ITS DONEgit pushgit pushgit pushgit push
+
+commit b20759ae8380a94887b3490557aa0699c9b00f9f
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Sun Nov 17 23:45:43 2024 -0700
+
+    HOLY SHITBALLS WE HAVAE A UI BBY
+
+commit 686b4f392ee0bc9e38fd4aace65465f279a7aade
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Wed Nov 13 19:46:41 2024 -0700
+
+    ClueCardUI ok now its not editable
+
+commit deb53b173c03d4a38cb66cc639efccf5732c60dd
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Wed Nov 13 14:23:23 2024 -0700
+
+    ClueCardUI actually done
+
+commit c1ef9544b806ecc2fb2353be82100600e83a7101
+Merge: 0bb8fe9 1573984
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Wed Nov 13 14:22:08 2024 -0700
+
+    Merge branch 'main' of https://github.com/mateoriv/Clue-Game
+
+commit 0bb8fe9cbea8ae65e4a03cce87f35a34026a0dbb
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Wed Nov 13 14:19:28 2024 -0700
+
+    ClueCardUI actually done
+
+commit 1573984e4646a3f4321c8a5fbb302b165de68674
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Nov 13 13:40:49 2024 -0700
+
+    Update HumanPlayer.java
+
+commit dc86f4115f22cd8e0e70e5151aa089203615f0ba
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Nov 13 13:40:46 2024 -0700
+
+    Update Player.java
+
+commit eb93027ba7fda4a65a7e6a353b1979d4e4febbb1
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Wed Nov 13 13:38:11 2024 -0700
+
+    Update Card.java
+
 commit d5136cd2b3ba368d7f35f262d4b69aa9a32bd9c4
 Merge: f42ef77 7f75b74
 Author: xanderpolitis <xanderpolitis@gmail.com>

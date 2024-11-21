@@ -13,19 +13,24 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.util.Set;
 
 public class ClueGame extends JFrame {
 	
-	public BoardGUI boardPanel = new BoardGUI();
-	public ClueCardGUI cardPanel = new ClueCardGUI();
-	public ClueControlGUI controlPanel = new ClueControlGUI();
+	private BoardGUI boardPanel = new BoardGUI();
+	private ClueCardGUI cardPanel = new ClueCardGUI();
+	private ClueControlGUI controlPanel = new ClueControlGUI();
 	
 	
 	public ClueGame() {
+		cardPanel.setSize(180, 750);
+		
 		add(boardPanel, BorderLayout.CENTER);
 		add(cardPanel, BorderLayout.EAST);
 		add(controlPanel, BorderLayout.SOUTH);
+		
+		cardPanel.setSize(180, 750);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue");
@@ -33,11 +38,16 @@ public class ClueGame extends JFrame {
 		setVisible(true);
 	}
 	
-	
+	public void updatePanels(Board board){
+		controlPanel.updatePanel(board);
+		cardPanel.updatePanel(board);
+		boardPanel.updatePanel();
+	}
 	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 		Board board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "room_names.txt");
 		board.initialize();
@@ -51,7 +61,9 @@ public class ClueGame extends JFrame {
 		// Create the JPanel and add it to the JFrame
 		
 		//DO NOT TOUCH
-		ClueGame frame = new ClueGame();
-
+		ClueGame frame = new ClueGame(); //delete yellow later
+		WelcomeScreen welcome = new WelcomeScreen(); // delete yellow things later
+		
+		
 	}
 }

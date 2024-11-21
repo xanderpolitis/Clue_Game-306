@@ -6,9 +6,12 @@ import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import experiment.TestBoardCell;
 
-public class BoardCell {
+public class BoardCell extends JComponent{
     private int row;
     private int col;
     
@@ -136,8 +139,8 @@ public class BoardCell {
 	}
 	
 	//this is painting all of the cells individually
-	public void paintComponent(Graphics g){
-		if(green) {
+	public void paintCell(Graphics g){
+		if(green && !(row == 30 && col == 30) ) {
 			g.setColor(greenColor);
 			green = false;
 		} else {
@@ -176,6 +179,21 @@ public class BoardCell {
 			default:
 				break;	
 			}
+	}
+	@Override
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		if(this.isRoom) {
+			g.setColor(targetColor);
+			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+		} else if (this.initial != 'X') {	
+			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+			g.setColor(targetColor);
+			g.drawRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+		} else {
+			g.setColor(targetColor);
+			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+		}
 	}
 			
 	public void paintLabel(Graphics g) {

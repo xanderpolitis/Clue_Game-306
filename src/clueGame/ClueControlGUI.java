@@ -12,9 +12,15 @@ import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.Dimension;
 
 public class ClueControlGUI extends JPanel{
-
+	
 	int roll = 1;
 	String rollStr = Integer.toString(roll);
 	
@@ -30,11 +36,27 @@ public class ClueControlGUI extends JPanel{
 	JTextField curGuess = new JTextField(guess);
 	JTextField rollNum = new JTextField(rollStr);
 	
+	JButton AccusationButton = new JButton("Make Accusation");
+	JButton NextButton = new JButton("Next");
 
 	public ClueControlGUI() {
 		setLayout(new GridLayout(2,0));
 		add(createNorth(), BorderLayout.NORTH);
 		add(createSouth(), BorderLayout.SOUTH);
+		NextButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Board.getInstance().next();
+            }
+        });
+		AccusationButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                Board.getInstance().next();
+            	//make a modal drop-down thing
+            	System.out.println("how dare you accuse me?");
+            }
+        });
 	}	
 
 	public void setTurn(Player player, int roll) {
@@ -47,7 +69,6 @@ public class ClueControlGUI extends JPanel{
 		rollNum.setText(rollStr);
 		playerText.setBackground(backround);
 	}
-	
 	public void setGuess(String guess) {
 		this.guess = guess;
 		
@@ -62,9 +83,6 @@ public class ClueControlGUI extends JPanel{
 
 	public JPanel createNorth() {
 		JPanel northPanel = new JPanel(new GridLayout(1,4));
-
-		JButton AccusationButton = new JButton("Make Accusation");
-		JButton NextButton = new JButton("Next");
 
 		northPanel.add(createNorth1());
 		northPanel.add(createNorth2());
@@ -132,6 +150,16 @@ public class ClueControlGUI extends JPanel{
 
 		return southPanel2;
 	}
+	
+	public void updatePanel(Board board) {
+		setTurn(board.getPlayers().get(board.currPlayer), board.roll);
+		setGuess(board.guess);
+		setGuessResult(board.result);
+		
+		this.invalidate();
+		this.validate();
+		repaint();
+	}
 
 
 	public static void main(String[] args) {
@@ -151,5 +179,4 @@ public class ClueControlGUI extends JPanel{
 		gui.setGuess( "I have no guess!");
 		gui.setGuessResult( "So you have nothing?");
 	}
-
 }

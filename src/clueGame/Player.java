@@ -59,8 +59,7 @@ public abstract class Player {
 		return hand;
 	}
 
-	public Color getColor()
-	{
+	public Color getColor(){
 		return this.color;
 	}
 	public void setColor(Color c) {
@@ -68,8 +67,10 @@ public abstract class Player {
 	}
 
 	public abstract void makeMove();  // To be implemented by subclasses
+	
+	
 
-	public void paintComponent(Graphics g) {
+	public void paintPlayer(Graphics g) {
 		g.setColor(this.color);
 		g.drawOval(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
 		g.fillOval(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);

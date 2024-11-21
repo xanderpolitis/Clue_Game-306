@@ -26,3 +26,6 @@ Weapon, Javelin, null, null
 Weapon, Flail, null, null
 Weapon, Halberd, null, null
 Weapon, Axe, null, null
+//9 rooms
+//6 players
+//6 players

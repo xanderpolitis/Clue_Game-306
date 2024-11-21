@@ -24,22 +24,22 @@ public class ClueCardGUI extends JPanel{
 	
 	public ClueCardGUI() {
 		setLayout(new GridLayout(3,1));
-		add(createPeople());
-		add(createRooms());
-		add(createWeapons());
+		add(createPeople(Board.getInstance()));
+		add(createRooms(Board.getInstance()));
+		add(createWeapons(Board.getInstance()));
 		setBorder(new TitledBorder (new EtchedBorder(), "Known Cards"));
 	}	
 
-	public JPanel createPeople() {
-		JLabel hand = new JLabel("In Hand:");
+	public JPanel createPeople(Board board) {
+		JLabel hand = new JLabel("In Hand:", 10);
 		peoplePanel.add(hand);
-		if(Board.getInstance().getPlayers().getFirst().getHand().isEmpty()) {
-			JLabel none = new JLabel("None");
+		if(board.getPlayers().getFirst().getHand().isEmpty()) {
+			JLabel none = new JLabel("None", 10);
 			none.setBackground(new Color(40, 40, 40));
 			peoplePanel.add(none);
 		}else {
 			boolean empty = true;
-			for(Card card:Board.getInstance().getPlayers().getFirst().getHand()) {
+			for(Card card:board.getPlayers().getFirst().getHand()) {
 				if(card.getType() == Card.CardType.PERSON) {
 					empty = false;
 					JTextField person = new JTextField(card.getName());
@@ -50,7 +50,7 @@ public class ClueCardGUI extends JPanel{
 				}
 			}
 			if(empty) {
-				JLabel none = new JLabel("None");
+				JLabel none = new JLabel("None", 10);
 				none.setBackground(new Color(40, 40, 40));
 				peoplePanel.add(none);
 			}
@@ -58,13 +58,13 @@ public class ClueCardGUI extends JPanel{
 
 		JLabel seen = new JLabel("Seen:");
 		peoplePanel.add(seen);
-		if(Board.getInstance().getPlayers().getFirst().seenCards.isEmpty()) {
-			JLabel none = new JLabel("None");
+		if(board.getPlayers().getFirst().seenCards.isEmpty()) {
+			JLabel none = new JLabel("None", 10);
 			none.setBackground(new Color(40, 40, 40));
 			peoplePanel.add(none);
 		}else {
 			boolean empty = true;
-			for(Card card:Board.getInstance().getPlayers().getFirst().seenCards) {
+			for(Card card:board.getPlayers().getFirst().seenCards) {
 				if(card.getType() == Card.CardType.PERSON) {
 					empty = false;
 					JTextField weapon = new JTextField(card.getName());
@@ -75,7 +75,7 @@ public class ClueCardGUI extends JPanel{
 				}
 			}
 			if(empty) {
-				JLabel none = new JLabel("None");
+				JLabel none = new JLabel("None", 10);
 				none.setBackground(new Color(40, 40, 40));
 				peoplePanel.add(none);
 			}
@@ -84,16 +84,16 @@ public class ClueCardGUI extends JPanel{
 		return peoplePanel;
 	}	
 
-	public JPanel createRooms() {
+	public JPanel createRooms(Board board) {
 		JLabel hand = new JLabel("In Hand:");
 		roomsPanel.add(hand);
-		if(Board.getInstance().getPlayers().getFirst().getHand().isEmpty()) {
-			JLabel none = new JLabel("None");
+		if(board.getPlayers().getFirst().getHand().isEmpty()) {
+			JLabel none = new JLabel("None", 10);
 			none.setBackground(new Color(40, 40, 40));
 			roomsPanel.add(none);
 		}else {
 			boolean empty = true;
-			for(Card card:Board.getInstance().getPlayers().getFirst().getHand()) {
+			for(Card card:board.getPlayers().getFirst().getHand()) {
 				if(card.getType() == Card.CardType.ROOM) {
 					empty = false;
 					JTextField room = new JTextField(card.getName());
@@ -104,20 +104,20 @@ public class ClueCardGUI extends JPanel{
 				}
 			}
 			if(empty) {
-				JLabel none = new JLabel("None");
+				JLabel none = new JLabel("None", 10);
 				none.setBackground(new Color(40, 40, 40));
 				roomsPanel.add(none);
 			}
 		}
 		JLabel seen = new JLabel("Seen:");
 		roomsPanel.add(seen);
-		if(Board.getInstance().getPlayers().getFirst().seenCards.isEmpty()) {
-			JLabel none = new JLabel("None");
+		if(board.getPlayers().getFirst().seenCards.isEmpty()) {
+			JLabel none = new JLabel("None", 10);
 			none.setBackground(new Color(40, 40, 40));
 			roomsPanel.add(none);
 		}else {
 			boolean empty = true;
-			for(Card card:Board.getInstance().getPlayers().getFirst().seenCards) {
+			for(Card card:board.getPlayers().getFirst().seenCards) {
 				if(card.getType() == Card.CardType.ROOM) {
 					empty = false;
 					JTextField room = new JTextField(card.getName());
@@ -128,7 +128,7 @@ public class ClueCardGUI extends JPanel{
 				}
 			}
 			if(empty) {
-				JLabel none = new JLabel("None");
+				JLabel none = new JLabel("None", 10);
 				none.setBackground(new Color(40, 40, 40));
 				roomsPanel.add(none);
 			}
@@ -137,16 +137,16 @@ public class ClueCardGUI extends JPanel{
 		return roomsPanel;
 	}
 
-	public JPanel createWeapons() {
+	public JPanel createWeapons(Board board) {
 		JLabel hand = new JLabel("In Hand:");
 		weaponsPanel.add(hand);
-		if(Board.getInstance().getPlayers().getFirst().getHand().isEmpty()) {
-			JLabel none = new JLabel("None");
+		if(board.getPlayers().getFirst().getHand().isEmpty()) {
+			JLabel none = new JLabel("None", 10);
 			none.setBackground(new Color(40, 40, 40));
 			weaponsPanel.add(none);
 		}else {
 			boolean empty = true;
-			for(Card card:Board.getInstance().getPlayers().getFirst().getHand()) {
+			for(Card card:board.getPlayers().getFirst().getHand()) {
 				if(card.getType() == Card.CardType.WEAPON) {
 					empty = false;
 					JTextField weapon = new JTextField(card.getName(), 10);
@@ -165,16 +165,16 @@ public class ClueCardGUI extends JPanel{
 
 		JLabel seen = new JLabel("Seen:");
 		weaponsPanel.add(seen);
-		if(Board.getInstance().getPlayers().getFirst().seenCards.isEmpty()) {
-			JLabel none = new JLabel("None");
+		if(board.getPlayers().getFirst().seenCards.isEmpty()) {
+			JLabel none = new JLabel("None", 10);
 			none.setBackground(new Color(40, 40, 40));
 			weaponsPanel.add(none);
 		}else {
 			boolean empty = true;
-			for(Card card:Board.getInstance().getPlayers().getFirst().seenCards) {
+			for(Card card:board.getPlayers().getFirst().seenCards) {
 				if(card.getType() == Card.CardType.WEAPON) {
 					empty = false;
-					JTextField weapon = new JTextField(card.getName());
+					JTextField weapon = new JTextField(card.getName(), 10);
 					weapon.setBackground(card.getColor());
 					weapon.setEditable(false);
 
@@ -182,7 +182,7 @@ public class ClueCardGUI extends JPanel{
 				}
 			}
 			if(empty) {
-				JLabel none = new JLabel("None");
+				JLabel none = new JLabel("None", 10);
 				none.setBackground(new Color(40, 40, 40));
 				none.setBorder(new EtchedBorder());
 				weaponsPanel.add(none);
@@ -192,17 +192,17 @@ public class ClueCardGUI extends JPanel{
 		return weaponsPanel;
 	}
 
-	public void updateCardPanels() {
+	public void updatePanel(Board board) {
 	
 		peoplePanel.removeAll();
-		peoplePanel = createPeople();
+		peoplePanel = createPeople(board);
 		add(peoplePanel);
 		
 		roomsPanel.removeAll();
-		add(createRooms());
+		add(createRooms(board));
 		
 		weaponsPanel.removeAll();
-		add(createWeapons());
+		add(createWeapons(board));
 		
 		this.invalidate();
 		this.validate();
@@ -233,6 +233,6 @@ public class ClueCardGUI extends JPanel{
 		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A room" , Card.CardType.ROOM));
 		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A weapon" , Card.CardType.WEAPON));
 		
-		gui.updateCardPanels();
+		gui.updatePanel(Board.getInstance());
 	}
 }

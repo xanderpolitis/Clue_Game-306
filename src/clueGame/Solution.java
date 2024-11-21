@@ -21,6 +21,19 @@ public class Solution {
                room.equals(solution.room);
     }
 
+    public boolean doesContain(Card c) {
+    	if(c.getName() == person) {
+    		return true;
+    	}
+    	if(c.getName() == weapon) {
+    		return true;
+    	}
+    	if(c.getName() == room) {
+    		return true;
+    	}
+    	return false;
+    }
+    
     @Override
     public int hashCode() {
         return person.hashCode() + weapon.hashCode() + room.hashCode();
