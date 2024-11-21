@@ -3,17 +3,22 @@ package clueGame;
 import java.util.*;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.*;
 
 
 
-public class Board {
+public class Board extends JPanel implements MouseListener {
 	private static Board theInstance = new Board();
 
 	static ClueGame frame = null;
 
+	public static int xSize;
+	public static int ySize;
 
 	private BoardCell[][] grid;
 	ArrayList<String[]> layout = new ArrayList<>();
@@ -181,6 +186,7 @@ public class Board {
 		//GIVE EVERYONE THEIR CARDS HERE
 		setupCards();
 		frame = new ClueGame();
+		theInstance.addMouseListener(theInstance);
 	}
 
 
@@ -464,9 +470,16 @@ public class Board {
 		return null;
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		xSize = getWidth()/30;
+		ySize = getHeight()/30;
+
 		ArrayList<BoardCell> labelList = new ArrayList<>();
 		ArrayList<BoardCell> doorList = new ArrayList<>();
+
 		for (BoardCell[] cellList:grid) {
 			for(BoardCell cell:cellList) {
 				cell.paintCell(g);
@@ -478,6 +491,12 @@ public class Board {
 				}
 			}
 		}
+
+		//if a target is a room center get that room and draw all cells part of that room
+		for (BoardCell target:targets) {
+			target.paintTarget(g);
+		}
+
 		//DRAW ALL LABELS
 		for (BoardCell cell:labelList) {
 			cell.paintLabel(g);
@@ -495,25 +514,20 @@ public class Board {
 	}
 
 	public void next() {
-		
+
 		Graphics g = null;
-		
+
 		if(!finished) {
 			return;
 		}
 
 		Random rand = new Random();
-		roll = rand.nextInt(8)+1;
+		roll = rand.nextInt(6)+1;
 
 		calcTargets(grid[players.get(currPlayer).row][players.get(currPlayer).col], roll);
-		
-//		for (BoardCell cell:targets){
-//			cell.paintComponent(g);
-//		}
-
-		//////// Updating gui
 
 		frame.updatePanels(theInstance);
+		repaint();
 		//
 
 
@@ -527,23 +541,40 @@ public class Board {
 		}
 	}
 
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+
+		//(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize)
+		for (BoardCell cell:targets) {
+			if ((cell.col*xSize<x && x<(cell.col+1)*xSize)&&(cell.row*ySize<y && y<(cell.row+1)*ySize)) {
+				movePlayer(players.getFirst(), cell);
+			}
+		}
+		System.out.println("Hey, you clicked on the board, nice job dev");
+		System.out.println(x);
+		System.out.println(y);
+		
+		System.out.println(players.getFirst().row+", "+players.getFirst().col);
+		
+		revalidate();
+		repaint();
+	}
+
+	private void movePlayer(Player player, BoardCell cell) {
+		player.col = cell.col;
+		player.row = cell.row;
+		targets.clear();
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 		Board board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "room_names.txt");
 		board.initialize();
-		//TEST CODE
-		//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A room" , Card.CardType.ROOM));
-		//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A weapon" , Card.CardType.WEAPON));
-		//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A person" , Card.CardType.PERSON));
-		//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A person" , Card.CardType.PERSON));
-		//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A room" , Card.CardType.ROOM));
-		//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A weapon" , Card.CardType.WEAPON));
-		// Create the JPanel and add it to the JFrame
-		//		ClueGame frame = new ClueGame();
-		//DO NOT TOUCH
-		//delete yellow later
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Clue");
 		frame.setVisible(true);
@@ -553,4 +584,15 @@ public class Board {
 
 	}
 
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
 }

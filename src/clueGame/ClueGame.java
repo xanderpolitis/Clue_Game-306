@@ -24,13 +24,10 @@ public class ClueGame extends JFrame {
 	
 	
 	public ClueGame() {
-		cardPanel.setSize(180, 750);
 		
-		add(boardPanel, BorderLayout.CENTER);
+		add(Board.getInstance(), BorderLayout.CENTER);
 		add(cardPanel, BorderLayout.EAST);
 		add(controlPanel, BorderLayout.SOUTH);
-		
-		cardPanel.setSize(180, 750);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue");
@@ -41,7 +38,7 @@ public class ClueGame extends JFrame {
 	public void updatePanels(Board board){
 		controlPanel.updatePanel(board);
 		cardPanel.updatePanel(board);
-		boardPanel.updatePanel();
+		Board.getInstance().repaint();
 	}
 	
 	
@@ -52,12 +49,12 @@ public class ClueGame extends JFrame {
 		board.setConfigFiles("ClueLayout.csv", "room_names.txt");
 		board.initialize();
 		//TEST CODE
-		Board.getInstance().getPlayers().getFirst().addCard(new Card("A room" , Card.CardType.ROOM));
-		Board.getInstance().getPlayers().getFirst().addCard(new Card("A weapon" , Card.CardType.WEAPON));
-		Board.getInstance().getPlayers().getFirst().addCard(new Card("A person" , Card.CardType.PERSON));
-		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A person" , Card.CardType.PERSON));
-		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A room" , Card.CardType.ROOM));
-		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A weapon" , Card.CardType.WEAPON));
+//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A room" , Card.CardType.ROOM));
+//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A weapon" , Card.CardType.WEAPON));
+//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A person" , Card.CardType.PERSON));
+//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A person" , Card.CardType.PERSON));
+//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A room" , Card.CardType.ROOM));
+//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A weapon" , Card.CardType.WEAPON));
 		// Create the JPanel and add it to the JFrame
 		
 		//DO NOT TOUCH
