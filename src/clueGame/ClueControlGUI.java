@@ -161,23 +161,4 @@ public class ClueControlGUI extends JPanel{
 		this.validate();
 		repaint();
 	}
-
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("ClueControlGUI");
-		frame.setSize(750, 180);	
-		// Create the JPanel and add it to the JFrame
-		ClueControlGUI gui = new ClueControlGUI();
-		frame.add(gui, BorderLayout.CENTER);
-		// Now let's view it
-		frame.setVisible(true);
-
-		//change these later and move this to main
-		gui.setTurn(new ComputerPlayer( "Mr. Bad guy", Color.GREEN, 0, 0), 5);
-		gui.setGuess( "I have no guess!");
-		gui.setGuessResult( "So you have nothing?");
-	}
 }

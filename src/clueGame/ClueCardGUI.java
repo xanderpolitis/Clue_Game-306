@@ -210,29 +210,4 @@ public class ClueCardGUI extends JPanel{
 		//this.revalidate();
 		
 	}
-
-	public static void main(String[] args) {
-		
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("ClueCardGUI");
-		frame.setSize(180, 750);	
-
-		//TEST CODE
-		Board.getInstance().getPlayers().add(new HumanPlayer( "Mr. Bad guy", Color.GREEN, 0, 0));
-		Board.getInstance().getPlayers().getFirst().addCard(new Card("A room" , Card.CardType.ROOM));
-		Board.getInstance().getPlayers().getFirst().addCard(new Card("A weapon" , Card.CardType.WEAPON));
-		Board.getInstance().getPlayers().getFirst().addCard(new Card("A person" , Card.CardType.PERSON));
-		// Create the JPanel and add it to the JFrame
-		ClueCardGUI gui = new ClueCardGUI();
-		frame.add(gui, BorderLayout.CENTER);
-		// Now let's view it
-		frame.setVisible(true);
-		
-		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A person" , Card.CardType.PERSON));
-		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A room" , Card.CardType.ROOM));
-		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A weapon" , Card.CardType.WEAPON));
-		
-		gui.updatePanel(Board.getInstance());
-	}
 }

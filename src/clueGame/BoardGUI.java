@@ -53,11 +53,4 @@ public class BoardGUI extends JPanel{
 		this.validate();
 		repaint();
 	}
-	
-	
-	public static void main(String[] args) {
-		
-
-	}
-
 }

@@ -46,25 +46,5 @@ public class ClueGame extends JFrame {
 	}
 	
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		Board board = Board.getInstance();
-		board.setConfigFiles("ClueLayout.csv", "room_names.txt");
-		board.initialize();
-		//TEST CODE
-//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A room" , Card.CardType.ROOM));
-//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A weapon" , Card.CardType.WEAPON));
-//		Board.getInstance().getPlayers().getFirst().addCard(new Card("A person" , Card.CardType.PERSON));
-//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A person" , Card.CardType.PERSON));
-//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A room" , Card.CardType.ROOM));
-//		Board.getInstance().getPlayers().getFirst().seenCards.add(new Card("A weapon" , Card.CardType.WEAPON));
-		// Create the JPanel and add it to the JFrame
-		
-		//DO NOT TOUCH
-		ClueGame frame = new ClueGame(); //delete yellow later
-		WelcomeScreen welcome = new WelcomeScreen(); // delete yellow things later
-		
-		
-	}
+	
 }
