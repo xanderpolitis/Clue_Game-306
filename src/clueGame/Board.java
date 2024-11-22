@@ -185,8 +185,6 @@ public class Board extends JPanel implements MouseListener {
 				}
 			}
 		}
-		//TODO
-		//GIVE EVERYONE THEIR CARDS HERE
 		setupCards();
 		frame = new ClueGame();
 		theInstance.addMouseListener(theInstance);
@@ -232,7 +230,7 @@ public class Board extends JPanel implements MouseListener {
 		}
 	}
 
-	public BoardCell getCell(int col, int row) { // Reactor later
+	public BoardCell getCell(int col, int row) { 
 		return grid[col][row];
 	}
 
@@ -292,7 +290,7 @@ public class Board extends JPanel implements MouseListener {
 
 			//choose a random element in the list and make a humanPlayer
 			Collections.shuffle(playerNames);
-			
+
 			//reading in all the players and adding them to cards
 			String[] parts = playerNames.getFirst().split(", ");
 			HumanPlayer human = new HumanPlayer(
@@ -460,7 +458,7 @@ public class Board extends JPanel implements MouseListener {
 	public ArrayList<Card> getCards(){
 		return cards;
 	}
-	
+
 	public boolean checkAccusation(Solution accusation) {
 		return this.theAnswer.equals(accusation);
 	}
@@ -535,12 +533,12 @@ public class Board extends JPanel implements MouseListener {
 
 	public void next() {
 		Graphics g = null;
-		
+
 		if(!finished) {
 			repaint();
 			return;
 		}
-		
+
 		nextPlayer();
 
 		Random rand = new Random();
@@ -566,12 +564,12 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	public void nextPlayer() {
-		
+
 		if (firstTurn) {
 			firstTurn = false;
 			return;
 		}
-		
+
 		if(players.get(currPlayer) == players.getLast()) {
 			currPlayer = 0;
 		} else {
@@ -584,7 +582,7 @@ public class Board extends JPanel implements MouseListener {
 		int x = e.getX();
 		int y = e.getY();
 
-		//(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize)
+		//On a mouse click if its a target, move a player
 		for (BoardCell cell:targets) {
 			if ((cell.col*xSize<x && x<(cell.col+1)*xSize)&&(cell.row*ySize<y && y<(cell.row+1)*ySize)) {
 				movePlayer(players.getFirst(), cell);
@@ -613,12 +611,11 @@ public class Board extends JPanel implements MouseListener {
 		}
 		targets.clear();
 		finished = true;
-		
+
 		repaint();
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		Board board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "room_names.txt");
