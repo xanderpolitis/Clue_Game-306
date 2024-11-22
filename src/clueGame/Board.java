@@ -12,6 +12,7 @@ import java.io.*;
 
 
 
+@SuppressWarnings("serial")
 public class Board extends JPanel implements MouseListener {
 	private static Board theInstance = new Board();
 
@@ -251,6 +252,7 @@ public class Board extends JPanel implements MouseListener {
 		return rooms.get(c);
 	}
 
+	@SuppressWarnings("resource")
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException {
 		try {
 			File txtFile = new File(roomConfigFile);
@@ -532,8 +534,6 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	public void next() {
-		Graphics g = null;
-
 		if(!finished) {
 			repaint();
 			return;
@@ -626,8 +626,9 @@ public class Board extends JPanel implements MouseListener {
 		frame.setTitle("Clue");
 		frame.setVisible(true);
 
+		
 		WelcomeScreen welcome = new WelcomeScreen(); // delete yellow things later
-
+		welcome.setSize(200, 100);
 
 	}
 
