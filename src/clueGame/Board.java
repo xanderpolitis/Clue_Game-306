@@ -292,6 +292,8 @@ public class Board extends JPanel implements MouseListener {
 
 			//choose a random element in the list and make a humanPlayer
 			Collections.shuffle(playerNames);
+			
+			//reading in all the players and adding them to cards
 			String[] parts = playerNames.getFirst().split(", ");
 			HumanPlayer human = new HumanPlayer(
 					parts[1], MyColor.getColor(parts[2]), 
@@ -309,13 +311,14 @@ public class Board extends JPanel implements MouseListener {
 				card = new Card(parts[1], Card.CardType.PERSON);
 				cards.add(card);
 			}
+			//adding weapons to cards
 			for(String weapon:weaponNames) {
 				card = new Card(weapon, Card.CardType.WEAPON);
 				cards.add(card);
 			}
 
 			txtReader.close();
-
+			return;
 		} catch(Exception e){
 			System.out.println(e);
 			throw new BadConfigFormatException();
@@ -367,6 +370,7 @@ public class Board extends JPanel implements MouseListener {
 				}
 			}
 			csvReader.close();
+			return;
 		} catch(IOException e){
 			throw new BadConfigFormatException();
 		}
@@ -483,6 +487,7 @@ public class Board extends JPanel implements MouseListener {
 		ArrayList<BoardCell> labelList = new ArrayList<>();
 		ArrayList<BoardCell> doorList = new ArrayList<>();
 
+		//paints the board
 		for (BoardCell[] cellList:grid) {
 			for(BoardCell cell:cellList) {
 				cell.paintCell(g);
@@ -529,7 +534,6 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	public void next() {
-
 		Graphics g = null;
 		
 		if(!finished) {
@@ -541,11 +545,9 @@ public class Board extends JPanel implements MouseListener {
 
 		Random rand = new Random();
 		roll = rand.nextInt(8)+1;
-
-
-
 		calcTargets(grid[players.get(currPlayer).row][players.get(currPlayer).col], roll);
 
+		//set the finished flag to false to prevent
 		finished = false;
 
 		frame.updatePanels(theInstance);
@@ -560,12 +562,7 @@ public class Board extends JPanel implements MouseListener {
 				((ComputerPlayer) players.get(currPlayer)).createSuggestion(grid[tempR][tempC].getRoom());
 			}
 		}
-		
-
 		repaint();
-		//
-
-
 	}
 
 	public void nextPlayer() {
