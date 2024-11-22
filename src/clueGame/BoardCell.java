@@ -150,14 +150,14 @@ public class BoardCell{
 
 		if(this.isRoom) {
 			g.setColor(roomColor);
-			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+			g.fillRect(col*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
 		} else if (this.initial != 'X') {	
-			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+			g.fillRect(col*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
 			g.setColor(Color.BLACK);
-			g.drawRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+			g.drawRect(col*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
 		} else {
 			g.setColor(Color.BLACK);
-			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+			g.fillRect(col*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
 		}
 	}
 
@@ -165,16 +165,16 @@ public class BoardCell{
 		g.setColor(Color.BLUE);
 		switch(doorDirection) {
 		case DoorDirection.UP:
-			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.ySize, BoardGUI.ySize/9);
+			g.fillRect(col*Board.xSize, row*Board.ySize, Board.ySize, Board.ySize/9);
 			break;
 		case DoorDirection.RIGHT:
-			g.fillRect((col+1)*BoardGUI.xSize, (row)*BoardGUI.ySize, BoardGUI.xSize/9, BoardGUI.xSize);
+			g.fillRect((col+1)*Board.xSize, (row)*Board.ySize, Board.xSize/9, Board.xSize);
 			break;
 		case DoorDirection.LEFT:
-			g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize/9, BoardGUI.xSize);
+			g.fillRect(col*Board.xSize, row*Board.ySize, Board.xSize/9, Board.xSize);
 			break;
 		case DoorDirection.DOWN:
-			g.fillRect((col)*BoardGUI.xSize, (row+1)*BoardGUI.ySize, BoardGUI.ySize, BoardGUI.ySize/9);
+			g.fillRect((col)*Board.xSize, (row+1)*Board.ySize, Board.ySize, Board.ySize/9);
 			break;
 		default:
 			break;	
@@ -184,13 +184,13 @@ public class BoardCell{
 	public void paintTarget(Graphics g){
 
 		g.setColor(targetColor);
-		g.fillRect(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+		g.fillRect(col*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
 	}
 
 	public void paintLabel(Graphics g) {
 		g.setColor(textColor);
 		g.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		g.drawChars(this.label.toCharArray(), 0, this.label.length(), col*BoardGUI.xSize, row*BoardGUI.ySize);
+		g.drawChars(this.label.toCharArray(), 0, this.label.length(), col*Board.xSize, row*Board.ySize);
 	}
 
 }

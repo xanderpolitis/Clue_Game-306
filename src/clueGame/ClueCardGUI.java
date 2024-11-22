@@ -166,7 +166,7 @@ public class ClueCardGUI extends JPanel{
 		JLabel seen = new JLabel("Seen:");
 		weaponsPanel.add(seen);
 		if(board.getPlayers().getFirst().seenCards.isEmpty()) {
-			JLabel none = new JLabel("None", 10);
+			JLabel none = new JLabel("None");
 			none.setBackground(new Color(40, 40, 40));
 			weaponsPanel.add(none);
 		}else {

@@ -44,7 +44,8 @@ public class Board extends JPanel implements MouseListener {
 
 	//Variables to do with next and the ui
 	public int roll = 1;
-	public int currPlayer = 0;
+	public static int currPlayer = 0;
+	private boolean firstTurn = true;
 	public String guess  = "I have no guess!";
 	public String result = "So you have nothing?";
 
@@ -52,6 +53,8 @@ public class Board extends JPanel implements MouseListener {
 
 
 	private Solution theAnswer;
+
+
 
 
 	private Board() {}
@@ -450,10 +453,10 @@ public class Board extends JPanel implements MouseListener {
 		return players;
 	}
 
-	public void setSolution(Solution solution) {
-		this.theAnswer = solution;
+	public ArrayList<Card> getCards(){
+		return cards;
 	}
-
+	
 	public boolean checkAccusation(Solution accusation) {
 		return this.theAnswer.equals(accusation);
 	}
@@ -473,7 +476,7 @@ public class Board extends JPanel implements MouseListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+
 		xSize = getWidth()/30;
 		ySize = getHeight()/30;
 
@@ -493,8 +496,20 @@ public class Board extends JPanel implements MouseListener {
 		}
 
 		//if a target is a room center get that room and draw all cells part of that room
-		for (BoardCell target:targets) {
-			target.paintTarget(g);
+		if (currPlayer == 0) {
+			for (BoardCell target:targets) {
+				if (target.isRoomCenter()) {
+					char c = target.getInitial();
+					for(BoardCell[] cells:grid) {
+						for(BoardCell cell:cells) {
+							if(c == cell.getInitial()) {
+								targets.add(cell);
+							}
+						}
+					}
+				}
+				target.paintTarget(g);
+			}
 		}
 
 		//DRAW ALL LABELS
@@ -516,17 +531,37 @@ public class Board extends JPanel implements MouseListener {
 	public void next() {
 
 		Graphics g = null;
-
+		
 		if(!finished) {
+			repaint();
 			return;
 		}
+		
+		nextPlayer();
 
 		Random rand = new Random();
 		roll = rand.nextInt(6)+1;
 
+
+
 		calcTargets(grid[players.get(currPlayer).row][players.get(currPlayer).col], roll);
 
+		finished = false;
+
 		frame.updatePanels(theInstance);
+
+		//if its  a computer
+		if(players.get(currPlayer) instanceof ComputerPlayer) {
+			BoardCell cell = ((ComputerPlayer) players.get(currPlayer)).selectTarget(targets);
+			movePlayer(players.get(currPlayer), cell);
+			int tempR = players.get(currPlayer).row;
+			int tempC = players.get(currPlayer).col;
+			if(grid[tempR][tempC].isRoom()) {
+				((ComputerPlayer) players.get(currPlayer)).createSuggestion(grid[tempR][tempC].getRoom());
+			}
+		}
+		
+
 		repaint();
 		//
 
@@ -534,6 +569,12 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	public void nextPlayer() {
+		
+		if (firstTurn) {
+			firstTurn = false;
+			return;
+		}
+		
 		if(players.get(currPlayer) == players.getLast()) {
 			currPlayer = 0;
 		} else {
@@ -555,17 +596,25 @@ public class Board extends JPanel implements MouseListener {
 		System.out.println("Hey, you clicked on the board, nice job dev");
 		System.out.println(x);
 		System.out.println(y);
-		
+
 		System.out.println(players.getFirst().row+", "+players.getFirst().col);
-		
+
 		revalidate();
 		repaint();
 	}
 
 	private void movePlayer(Player player, BoardCell cell) {
-		player.col = cell.col;
-		player.row = cell.row;
+		if (cell.isRoom() && !cell.isRoomCenter()) {
+			cell = cell.getRoom().getCenterCell();
+			player.col = cell.col;
+			player.row = cell.row;
+			player.createSuggestion(cell.getRoom());
+		} else {
+			player.col = cell.col;
+			player.row = cell.row;
+		}
 		targets.clear();
+		finished = true;
 	}
 
 	public static void main(String[] args) {
@@ -575,6 +624,7 @@ public class Board extends JPanel implements MouseListener {
 		board.setConfigFiles("ClueLayout.csv", "room_names.txt");
 		board.initialize();
 
+		frame.setSize(997, 860);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Clue");
 		frame.setVisible(true);

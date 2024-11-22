@@ -21,18 +21,22 @@ public class ClueGame extends JFrame {
 	private BoardGUI boardPanel = new BoardGUI();
 	private ClueCardGUI cardPanel = new ClueCardGUI();
 	private ClueControlGUI controlPanel = new ClueControlGUI();
-	
+	Board board = Board.getInstance();
 	
 	public ClueGame() {
 		
-		add(Board.getInstance(), BorderLayout.CENTER);
+		add(board, BorderLayout.CENTER);
+		board.setPreferredSize(new Dimension(400, 400));
 		add(cardPanel, BorderLayout.EAST);
+		cardPanel.setPreferredSize(new Dimension(130, 700));
 		add(controlPanel, BorderLayout.SOUTH);
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue");
 		setSize(993, 860);
 		setVisible(true);
+		this.pack();
 	}
 	
 	public void updatePanels(Board board){

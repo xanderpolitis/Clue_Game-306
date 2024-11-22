@@ -15,16 +15,10 @@ public class HumanPlayer extends Player {
 		super(name, color, row, col);
 	}
 
-	private Scanner scanner = new Scanner(System.in);
-
+	@Override
 	public Solution createSuggestion(Room room) {
-		System.out.println("Enter your suggestion for person, weapon, and room (current room is " + room.getName() + ")");
-		System.out.print("Person: ");
-		String person = scanner.nextLine();
-		System.out.print("Weapon: ");
-		String weapon = scanner.nextLine();
-
-		return new Solution(person, weapon, room.getName());
+		MakeSuggestion s = new MakeSuggestion(room);
+		return new Solution(s.getPerson().getName(), s.getWeapon().getName(), room.getName());
 	}
 
 	@Override

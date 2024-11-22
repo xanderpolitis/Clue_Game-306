@@ -66,13 +66,17 @@ public abstract class Player {
 		this.color = c;
 	}
 
+	public abstract Solution createSuggestion(Room room);
+	
+	
+	
 	public abstract void makeMove();  // To be implemented by subclasses
 	
 	
 
 	public void paintPlayer(Graphics g) {
 		g.setColor(this.color);
-		g.drawOval(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
-		g.fillOval(col*BoardGUI.xSize, row*BoardGUI.ySize, BoardGUI.xSize, BoardGUI.ySize);
+		g.drawOval(col*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
+		g.fillOval(col*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
 	}
 }
