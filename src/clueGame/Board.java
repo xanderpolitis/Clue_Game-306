@@ -540,7 +540,7 @@ public class Board extends JPanel implements MouseListener {
 		nextPlayer();
 
 		Random rand = new Random();
-		roll = rand.nextInt(6)+1;
+		roll = rand.nextInt(8)+1;
 
 
 
