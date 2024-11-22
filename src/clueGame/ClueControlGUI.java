@@ -21,11 +21,11 @@ import java.awt.Dimension;
 
 public class ClueControlGUI extends JPanel{
 	
-	int roll = 1;
+	int roll = 0;
 	String rollStr = Integer.toString(roll);
 	
-	String guess  = "I have no guess!";
-	String result = "So you have nothing?";
+	String guess  = "                                            ";
+	String result = "                                             ";
 	//change to HUMAN 
 	Player player = new ComputerPlayer( "Current Player", Color.GRAY, 0, 0);
 	Color backround = player.getColor();

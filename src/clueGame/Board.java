@@ -47,8 +47,8 @@ public class Board extends JPanel implements MouseListener {
 	public int roll = 1;
 	public static int currPlayer = 0;
 	private boolean firstTurn = true;
-	public String guess  = "I have no guess!";
-	public String result = "So you have nothing?";
+	public String guess  = "                                               ";
+	public String result = "                                                ";
 
 	private boolean finished = true;
 
