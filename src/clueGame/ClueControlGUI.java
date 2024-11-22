@@ -31,7 +31,6 @@ public class ClueControlGUI extends JPanel{
 	Color backround = player.getColor();
 	
 	//Make all update-able Text Fields or any other ones GLOBAL
-	
 	JTextField guessResult = new JTextField(result);
 	JTextField playerText = new JTextField(this.player.getName());
 	JTextField curGuess = new JTextField(guess);

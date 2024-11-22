@@ -43,19 +43,15 @@ public class Board extends JPanel implements MouseListener {
 	protected ArrayList<Card> cards = new ArrayList<>();
 
 
-	//Variables to do with next and the ui
+	//Variables to do with next
 	public int roll = 1;
 	public static int currPlayer = 0;
 	private boolean firstTurn = true;
 	public String guess  = "                                               ";
 	public String result = "                                                ";
-
 	private boolean finished = true;
 
-
 	private Solution theAnswer;
-
-
 
 
 	private Board() {}
@@ -382,30 +378,6 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	public void findAllTargets(BoardCell startCell, int numSteps) {
-
-		//		if (visited.contains(startCell)) {
-		//			return;
-		//		}
-		//
-		//		visited.add(startCell);
-		//
-		//		if(startCell.getOccupied()) {
-		//			return;
-		//		}
-		//
-		//		if(numSteps == 0 || startCell.isRoomCenter()) {
-		//			targets.add(startCell);
-		//			return;
-		//		}
-		//
-		//		for (BoardCell adjCell : startCell.getAdjList()) {
-		//			findAllTargets(adjCell, numSteps-1); 
-		//			visited.remove(adjCell);
-		//		}
-		//		return;
-
-
-
 		for (BoardCell adjCell : startCell.getAdjList()) {
 			if(visited.contains(adjCell) || (adjCell.getOccupied() && !adjCell.isRoomCenter())) {
 				continue;
@@ -564,7 +536,6 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	public void nextPlayer() {
-
 		if (firstTurn) {
 			firstTurn = false;
 			return;
@@ -589,12 +560,6 @@ public class Board extends JPanel implements MouseListener {
 				break;
 			}
 		}
-		System.out.println("Hey, you clicked on the board, nice job dev");
-		System.out.println(x);
-		System.out.println(y);
-
-		System.out.println(players.getFirst().row+", "+players.getFirst().col);
-
 		revalidate();
 		repaint();
 	}
@@ -627,7 +592,7 @@ public class Board extends JPanel implements MouseListener {
 		frame.setVisible(true);
 
 		
-		WelcomeScreen welcome = new WelcomeScreen(); // delete yellow things later
+		WelcomeScreen welcome = new WelcomeScreen();
 		welcome.setSize(200, 100);
 
 	}
