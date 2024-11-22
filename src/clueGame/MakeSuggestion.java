@@ -57,6 +57,7 @@ public class MakeSuggestion extends JDialog {
             public void mouseClicked(MouseEvent e) {
                 person = (Card) pDM.getSelectedItem();
                 weapon = (Card) wDM.getSelectedItem();
+                //TODO
                 
                 dispose();
             }

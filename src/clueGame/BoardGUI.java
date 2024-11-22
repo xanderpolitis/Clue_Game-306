@@ -22,15 +22,6 @@ public class BoardGUI extends JPanel{
 	public static int ySize;
 	
 	Graphics g = null;
-	//BOX LAYOUT: Allows for horizontal or vertical alignment of components
-	
-	/*for each cell:{
-	* 	paintComponent(i*x, j*y) // where i and j is the x and y components of each cell
-	* 	
-	*}
-	*
-	*
-	*/
 	
 	public BoardGUI(){
 		setSize(500, 500);

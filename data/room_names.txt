@@ -10,7 +10,7 @@ Room, Armory, A
 Room,  Music, M
 Room, Observatory, O
 // Other spaces on board
-Space, Unused, Z
+Space, Unused, X
 Space, Walkway, W
 //PLAYERS
 Player, King, BLUE, 30, 17

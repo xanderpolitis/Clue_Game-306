@@ -44,7 +44,4 @@ public class ClueGame extends JFrame {
 		cardPanel.updatePanel(board);
 		Board.getInstance().repaint();
 	}
-	
-	
-	
 }
