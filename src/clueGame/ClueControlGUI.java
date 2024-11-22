@@ -26,7 +26,8 @@ public class ClueControlGUI extends JPanel{
 	
 	String guess  = "I have no guess!";
 	String result = "So you have nothing?";
-	Player player = new ComputerPlayer( "Col. Mustard", Color.ORANGE, 0, 0);
+	//change to HUMAN 
+	Player player = new ComputerPlayer( "Current Player", Color.GRAY, 0, 0);
 	Color backround = player.getColor();
 	
 	//Make all update-able Text Fields or any other ones GLOBAL

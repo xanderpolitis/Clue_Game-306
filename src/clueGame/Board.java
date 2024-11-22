@@ -591,6 +591,7 @@ public class Board extends JPanel implements MouseListener {
 		for (BoardCell cell:targets) {
 			if ((cell.col*xSize<x && x<(cell.col+1)*xSize)&&(cell.row*ySize<y && y<(cell.row+1)*ySize)) {
 				movePlayer(players.getFirst(), cell);
+				break;
 			}
 		}
 		System.out.println("Hey, you clicked on the board, nice job dev");
@@ -615,6 +616,8 @@ public class Board extends JPanel implements MouseListener {
 		}
 		targets.clear();
 		finished = true;
+		
+		repaint();
 	}
 
 	public static void main(String[] args) {
