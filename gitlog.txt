@@ -1,3 +1,94 @@
+commit 92af987d05f97deaa2f92ebb70f946423a60f716 (HEAD -> main, origin/main, origin/Refactor, origin/HEAD, Refactor)
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Fri Nov 22 14:51:22 2024 -0700
+
+    removed system outs
+
+commit 03a385c92676c7b5b7e6086f8a5fb9c518f66a68
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Fri Nov 22 14:33:41 2024 -0700
+
+    fixed wrong boardConfig throw
+
+commit 32a15c2652c0b90b63852a1d80173d4d35fbc60b
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Fri Nov 22 14:24:45 2024 -0700
+
+    removed main from anything that didn't need it
+
+commit c2eebf6023d31655f46c4ed465c8ae07d625b526
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Fri Nov 22 14:20:56 2024 -0700
+
+    changed ClueControlUI text fields to look more polished
+
+commit cac378172350e1043b32636e1e9c11a0fd374ec0
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Fri Nov 22 14:13:38 2024 -0700
+
+    removed an unnececary variable and resolved/suppressed all warnings that were resolved
+
+commit ddcd1ba8965c388e9b48e59a38ef94ae3d95b408
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Fri Nov 22 14:08:09 2024 -0700
+
+    removed unnecesary comments, like reminders to do something i already implememnted, among others
+
+commit c13de31a8f9c63a4181936002a5815087f4a47ad
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Fri Nov 22 13:53:44 2024 -0700
+
+    Added comments to complex algos
+
+commit 79f71506d2b4088f1a9e332638ac7af05f50aa38
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Fri Nov 22 13:43:21 2024 -0700
+
+    Fixed double click issue
+
+commit 890439ea14190500ca211047251239f038846b9a
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Fri Nov 22 13:07:52 2024 -0700
+
+    deleated players.txt because we condenced our data
+
+commit 5a544f3236be73f0e2c6144c40650976b344024c
+Merge: 93c4813 ab8d447
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Fri Nov 22 13:04:50 2024 -0700
+
+    Merge branch 'main' of https://github.com/mateoriv/Clue-Game
+
+commit ab8d447aedd7a858aed468d0c4ef0d7f19bfaf2b
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Fri Nov 22 12:59:39 2024 -0700
+
+    added suggestion UI
+
+commit 93c48136f801fcf149c5802adee6984ada0ee924
+Author: mateoriv <mateorivera@mines.edu>
+Date:   Fri Nov 22 12:56:18 2024 -0700
+
+    blah
+
+commit 8a4b2f59abc03ae12879849e30940e1e67fd7571
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Fri Nov 22 00:28:40 2024 -0700
+
+    PLAYERS MOVE?
+
+commit 90b8d9b4f4172315f5175b7cbeb83b3c767d736e
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Thu Nov 21 14:58:59 2024 -0700
+
+    Draws Targets
+
+commit 108f35e28da2b7b4fe8157d3c9223cf2a81f4c92
+Author: xanderpolitis <xanderpolitis@gmail.com>
+Date:   Thu Nov 21 13:44:20 2024 -0700
+
+    Players call calc targets but program crashes when I call paintTargets
+
 commit 5fa5fe8d3115b1fc0834f9aadfbb9bdded747aee
 Author: xanderpolitis <xanderpolitis@gmail.com>
 Date:   Wed Nov 20 13:00:32 2024 -0700
