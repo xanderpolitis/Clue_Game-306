@@ -181,7 +181,7 @@ public class Board extends JPanel implements MouseListener {
 					}
 				}
 			}
-		}
+		}	
 		setupCards();
 		frame = new ClueGame();
 		theInstance.addMouseListener(theInstance);
@@ -214,14 +214,16 @@ public class Board extends JPanel implements MouseListener {
 
 		theAnswer = new Solution(personString, weaponString, roomString);
 
+		ArrayList<Card> tempCards = (ArrayList<Card>) cards.clone();
+		Collections.shuffle(tempCards);
+		Collections.shuffle(cards);
 		for (Player player:players){
-			Collections.shuffle(cards);
 			while(player.hand.size() < 3) {
-				if(!theAnswer.doesContain(cards.getFirst())) {
-					player.addCard(cards.getFirst());
-					cards.remove(0);
+				if(!theAnswer.doesContain(tempCards.getFirst())) {
+					player.addCard(tempCards.getFirst());
+					tempCards.remove(0);
 				}else {
-					cards.remove(0);
+					tempCards.remove(0);
 				}
 			}
 		}
@@ -240,7 +242,6 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	public Room getRoom(BoardCell cell){
-		System.out.println(cell);
 		return rooms.get(cell.getInitial());
 	}
 
@@ -298,6 +299,8 @@ public class Board extends JPanel implements MouseListener {
 			Card card = new Card(parts[1], Card.CardType.PERSON);
 			cards.add(card);
 			playerNames.remove(0);
+			
+			//Computer Players
 			for(String player:playerNames) {
 				parts = player.split(", ");
 				ComputerPlayer comp = new ComputerPlayer(
@@ -476,10 +479,9 @@ public class Board extends JPanel implements MouseListener {
 		if (currPlayer == 0) {
 			for (BoardCell target:targets) {
 				if (target.isRoomCenter()) {
-					char c = target.getInitial();
 					for(BoardCell[] cells:grid) {
 						for(BoardCell cell:cells) {
-							if(c == cell.getInitial()) {
+							if(target.getRoom() == cell.getRoom()) {
 								targets.add(cell);
 							}
 						}
@@ -565,19 +567,63 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	private void movePlayer(Player player, BoardCell cell) {
-		if (cell.isRoom() && !cell.isRoomCenter()) {
+		if (cell.isRoom()) {	
+			cell.setOccupied(false);
 			cell = cell.getRoom().getCenterCell();
 			player.col = cell.col;
 			player.row = cell.row;
+			
+			targets.clear();
+			finished = true;
+			
+			revalidate();
+			repaint();
+			
 			player.createSuggestion(cell.getRoom());
-		} else {
-			player.col = cell.col;
-			player.row = cell.row;
+			
+			//you guess a player, find that player and add them to the room	
+			String personName = MakeSuggestion.getPerson().getName();
+			int i = -1;
+			for(Player p:players) {
+				i++;
+				if (p.getName().equals(personName)) {
+					break;
+				}
+			}
+			players.get(i).col = player.col;
+			players.get(i).row = player.row;
+			players.get(i).paintPlayer(getGraphics());
+			
+			
+			if (MakeSuggestion.returnCard != null) {
+				player.addSeenCard(MakeSuggestion.returnCard);
+				
+				guess = MakeSuggestion.getPerson()+", "
+				+MakeSuggestion.getRoom()+", "
+				+MakeSuggestion.getWeapon();
+				result = MakeSuggestion.returnCard.getName();
+				
+				frame.getControlPanel().setGuess(guess);
+				frame.getControlPanel().setGuessResult(result);
+				
+				frame.updatePanels(getInstance());
+				return;
+			}
+			return;
 		}
+		
+		grid[player.row][player.col].setOccupied(false);
+		player.col = cell.col;
+		player.row = cell.row;
+		cell.setOccupied(true);
+		
 		targets.clear();
 		finished = true;
-
+		
+		revalidate();
 		repaint();
+		
+		return;
 	}
 
 	public static void main(String[] args) {

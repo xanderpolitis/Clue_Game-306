@@ -21,17 +21,21 @@ public class MakeSuggestion extends JDialog {
 	JButton cancel = new JButton("Cancel");
 	JButton submit = new JButton("Submit");
 	
-	ArrayList<Card> cards = Board.getInstance().getCards();
+	static ArrayList<Card> cards = Board.getInstance().getCards();
 	ArrayList<Card> people = new ArrayList<>();
 	ArrayList<Card> rooms = new ArrayList<>();
 	ArrayList<Card> weapons = new ArrayList<>();
 	
-	Card room;
-	Card person;
-	Card weapon;
+	static String room;
+	static Card person;
+	static Card weapon;
+	
+	static Card returnCard;
 	
 	public MakeSuggestion(Room curRoom) {
 		//set up cards lists
+		this.setModal(true);
+		room = curRoom.getName();
 		for(Card card: cards) {
 			if(card.getType()==Card.CardType.PERSON) {
 				people.add(card);
@@ -44,8 +48,16 @@ public class MakeSuggestion extends JDialog {
 			}
 		}
 		//This line is broken
-		JComboBox pDM = new JComboBox<>(people.toArray());
-		JComboBox wDM = new JComboBox<>(weapons.toArray());
+		//THIS LINEE IS BAD
+		JComboBox<Card> pDM = new JComboBox<Card>();
+		JComboBox<Card> wDM = new JComboBox<Card>();
+		
+		for(Card card:people) {
+			pDM.addItem(card);
+		}
+		for(Card card:weapons) {
+			wDM.addItem(card);
+		}
 
 		JTextField currentRoom = new JTextField(curRoom.getName());
 		currentRoom.setEditable(false);
@@ -55,9 +67,12 @@ public class MakeSuggestion extends JDialog {
 		submit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+            	//THIS LINE IS BAD
                 person = (Card) pDM.getSelectedItem();
                 weapon = (Card) wDM.getSelectedItem();
                 //TODO
+                Solution suggestion = new Solution(person.getName(), weapon.getName(), room);
+                returnCard = Board.getInstance().handleSuggestion(suggestion, Board.getInstance().players.getFirst());
                 
                 dispose();
             }
@@ -87,20 +102,25 @@ public class MakeSuggestion extends JDialog {
 		this.setModal(true);
 	}
 	
-	public Card getPerson() {
+	public static Card getPerson() {
 		return person;
 	}
 	
-	public Card getWeapon() {
+	public static Card getWeapon() {
 		return weapon;
 	}
 	
-	public Card getRoom() {
+	public static String getRoom() {
 		return room;
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		cards.add(new Card("a person", Card.CardType.PERSON));
+		cards.add(new Card("a weapon", Card.CardType.WEAPON));
+		cards.add(new Card("another person", Card.CardType.PERSON));
+		cards.add(new Card("another weapon", Card.CardType.WEAPON));
 		MakeSuggestion  s = new MakeSuggestion(new Room("a room"));
 	}
 

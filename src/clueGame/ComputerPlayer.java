@@ -33,7 +33,7 @@ public class ComputerPlayer extends Player {
          }
      }
      Random rand = new Random();
-     return unseenOfType.get(rand.nextInt(unseenOfType.size()));
+     return unseenOfType.get(rand.nextInt(Board.getInstance().cards.size()));
  }
 
  public BoardCell selectTarget(Set<BoardCell> targets) {

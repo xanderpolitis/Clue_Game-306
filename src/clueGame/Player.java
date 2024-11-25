@@ -36,7 +36,9 @@ public abstract class Player {
 	}
 
 	public void addSeenCard(Card card) {
+		if(!seenCards.contains(card)) {
 		seenCards.add(card);
+		}
 	}
 
 	public Card disproveSuggestion(Solution suggestion) {
@@ -57,6 +59,10 @@ public abstract class Player {
 	}
 	public List<Card> getHand(){
 		return hand;
+	}
+	
+	public List<Card> getSeen(){
+		return seenCards;
 	}
 
 	public Color getColor(){

@@ -40,7 +40,7 @@ public String getName() {
 
  @Override
 	public String toString() {
-     return name + " (" + type + ")";
+     return name;
  }	
 	public void setColor(Color c) {
 		color = c;

@@ -20,7 +20,7 @@ public class ClueCardGUI extends JPanel{
 	private JPanel roomsPanel = new JPanel(new GridLayout(0,1));
 	private JPanel weaponsPanel = new JPanel(new GridLayout(0,1));
 	
-	HumanPlayer player = new HumanPlayer( "Col. Mustard", Color.ORANGE, 0, 0);
+	Player player = Board.getInstance().getPlayers().getFirst();
 	
 	public ClueCardGUI() {
 		setLayout(new GridLayout(3,1));

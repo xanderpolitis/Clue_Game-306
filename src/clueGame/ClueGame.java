@@ -39,6 +39,14 @@ public class ClueGame extends JFrame {
 		this.pack();
 	}
 	
+	public ClueControlGUI getControlPanel() {
+		return controlPanel;
+	}
+	
+	public ClueCardGUI getCardPanel() {
+		return cardPanel;
+	}
+	
 	public void updatePanels(Board board){
 		controlPanel.updatePanel(board);
 		cardPanel.updatePanel(board);
