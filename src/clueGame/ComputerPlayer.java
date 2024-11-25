@@ -1,7 +1,9 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -26,14 +28,14 @@ public class ComputerPlayer extends Player {
  }
 
  private Card getRandomUnseenCard(Card.CardType type) {
-     List<Card> unseenOfType = new ArrayList<>();
-     for (Card card : seenCards) {
-         if (card.getType() == type) {
+     ArrayList<Card> unseenOfType = new ArrayList<>();
+     for (Card card : Board.getInstance().cards) {
+         if (card.getType() == type && !seenCards.contains(card)) {
              unseenOfType.add(card);
          }
      }
-     Random rand = new Random();
-     return unseenOfType.get(rand.nextInt(Board.getInstance().cards.size()));
+     Collections.shuffle(unseenOfType);
+     return unseenOfType.getFirst();
  }
 
  public BoardCell selectTarget(Set<BoardCell> targets) {

@@ -21,7 +21,7 @@ public class Board extends JPanel implements MouseListener {
 	public static int xSize;
 	public static int ySize;
 
-	private BoardCell[][] grid;
+	public BoardCell[][] grid;
 	ArrayList<String[]> layout = new ArrayList<>();
 	private int numRows = 0;
 	private int numColumns = 0;
@@ -299,7 +299,7 @@ public class Board extends JPanel implements MouseListener {
 			Card card = new Card(parts[1], Card.CardType.PERSON);
 			cards.add(card);
 			playerNames.remove(0);
-			
+
 			//Computer Players
 			for(String player:playerNames) {
 				parts = player.split(", ");
@@ -477,7 +477,12 @@ public class Board extends JPanel implements MouseListener {
 
 		//if a target is a room center get that room and draw all cells part of that room
 		if (currPlayer == 0) {
-			for (BoardCell target:targets) {
+			Set<BoardCell> tempTargets = new HashSet<BoardCell>();
+
+			for (BoardCell i:targets) {
+				tempTargets.add(i);
+			}
+			tempTargets.forEach(target -> {
 				if (target.isRoomCenter()) {
 					for(BoardCell[] cells:grid) {
 						for(BoardCell cell:cells) {
@@ -487,8 +492,24 @@ public class Board extends JPanel implements MouseListener {
 						}
 					}
 				}
+			});
+			
+			for (BoardCell target:targets) {
 				target.paintTarget(g);
 			}
+
+			//			for (BoardCell target:targets) {
+			//				if (target.isRoomCenter()) {
+			//					for(BoardCell[] cells:grid) {
+			//						for(BoardCell cell:cells) {
+			//							if(target.getRoom() == cell.getRoom()) {
+			//								targets.add(cell);
+			//							}
+			//						}
+			//					}
+			//				}
+			//				target.paintTarget(g);
+			//			}
 		}
 
 		//DRAW ALL LABELS
@@ -504,6 +525,12 @@ public class Board extends JPanel implements MouseListener {
 		//DRAW ALL PLAYERS
 		for (Player p:players) {
 			p.paintPlayer(g);
+			if(grid[p.row][p.col].isRoom()) {
+				grid[p.row][p.col].getRoom().addPlayerInRoom();
+			}
+		}
+		for (Room r:rooms.values()) {
+			r.setPlayerInRoom(0);
 		}
 	}
 
@@ -572,15 +599,15 @@ public class Board extends JPanel implements MouseListener {
 			cell = cell.getRoom().getCenterCell();
 			player.col = cell.col;
 			player.row = cell.row;
-			
+
 			targets.clear();
 			finished = true;
-			
+
 			revalidate();
 			repaint();
-			
+
 			player.createSuggestion(cell.getRoom());
-			
+
 			//you guess a player, find that player and add them to the room	
 			String personName = MakeSuggestion.getPerson().getName();
 			int i = -1;
@@ -593,36 +620,36 @@ public class Board extends JPanel implements MouseListener {
 			players.get(i).col = player.col;
 			players.get(i).row = player.row;
 			players.get(i).paintPlayer(getGraphics());
-			
-			
+
+
 			if (MakeSuggestion.returnCard != null) {
 				player.addSeenCard(MakeSuggestion.returnCard);
-				
+
 				guess = MakeSuggestion.getPerson()+", "
-				+MakeSuggestion.getRoom()+", "
-				+MakeSuggestion.getWeapon();
+						+MakeSuggestion.getRoom()+", "
+						+MakeSuggestion.getWeapon();
 				result = MakeSuggestion.returnCard.getName();
-				
+
 				frame.getControlPanel().setGuess(guess);
 				frame.getControlPanel().setGuessResult(result);
-				
+
 				frame.updatePanels(getInstance());
 				return;
 			}
 			return;
 		}
-		
+
 		grid[player.row][player.col].setOccupied(false);
 		player.col = cell.col;
 		player.row = cell.row;
 		cell.setOccupied(true);
-		
+
 		targets.clear();
 		finished = true;
-		
+
 		revalidate();
 		repaint();
-		
+
 		return;
 	}
 
@@ -637,7 +664,7 @@ public class Board extends JPanel implements MouseListener {
 		frame.setTitle("Clue");
 		frame.setVisible(true);
 
-		
+
 		WelcomeScreen welcome = new WelcomeScreen();
 		welcome.setSize(200, 100);
 

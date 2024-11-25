@@ -12,7 +12,7 @@ import java.util.Random;
 public abstract class Player {
 	protected List<Card> hand = new ArrayList<>();
 	protected List<Card> seenCards = new ArrayList<>();
-	
+
 	protected String name;
 	//protected String color;
 	Color color;
@@ -24,6 +24,7 @@ public abstract class Player {
 		this.color = color; 
 		this.row = row; 
 		this.col = col;
+
 	}
 
 	public String getName() {
@@ -37,9 +38,11 @@ public abstract class Player {
 
 	public void addSeenCard(Card card) {
 		if(!seenCards.contains(card)) {
-		seenCards.add(card);
+			seenCards.add(card);
 		}
 	}
+
+
 
 	public Card disproveSuggestion(Solution suggestion) {
 		List<Card> matchingCards = new ArrayList<>();
@@ -60,7 +63,7 @@ public abstract class Player {
 	public List<Card> getHand(){
 		return hand;
 	}
-	
+
 	public List<Card> getSeen(){
 		return seenCards;
 	}
@@ -73,16 +76,25 @@ public abstract class Player {
 	}
 
 	public abstract Solution createSuggestion(Room room);
-	
-	
-	
+
+
+
 	public abstract void makeMove();  // To be implemented by subclasses
-	
-	
+
+
 
 	public void paintPlayer(Graphics g) {
-		g.setColor(this.color);
-		g.drawOval(col*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
-		g.fillOval(col*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
+		//draws players in a room staggered from each other
+		if(Board.getInstance().grid[row][col].isRoom()) {
+			Room room = Board.getInstance().grid[row][col].getRoom();
+			int offset = room.getPlayersInRoom();
+			g.setColor(this.color);
+			g.drawOval((int) ((col+(.5*offset))*Board.xSize), row*Board.ySize, Board.xSize, Board.ySize);
+			g.fillOval((int) ((col+((.5*offset)))*Board.xSize), row*Board.ySize, Board.xSize, Board.ySize);
+		} else {
+			g.setColor(this.color);
+			g.drawOval((col)*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
+			g.fillOval((col)*Board.xSize, row*Board.ySize, Board.xSize, Board.ySize);
+		}
 	}
 }
