@@ -754,8 +754,6 @@ public class Board extends JPanel implements MouseListener {
 		frame.setTitle("Clue");
 		frame.setVisible(true);
 
-		System.out.println(theAnswer);
-
 		WelcomeScreen welcome = new WelcomeScreen();
 		welcome.setSize(200, 100);
 
