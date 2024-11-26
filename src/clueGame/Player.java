@@ -78,10 +78,9 @@ public abstract class Player {
 	public abstract Solution createSuggestion(Room room);
 
 
-
 	public abstract void makeMove();  // To be implemented by subclasses
 
-
+	public abstract Solution makeAccusation();
 
 	public void paintPlayer(Graphics g) {
 		//draws players in a room staggered from each other

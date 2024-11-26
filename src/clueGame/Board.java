@@ -2,8 +2,13 @@ package clueGame;
 
 import java.util.*;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -51,8 +56,13 @@ public class Board extends JPanel implements MouseListener {
 	public String result = "                                                ";
 	private boolean finished = true;
 
-	private Solution theAnswer;
-
+	private static Solution theAnswer;
+	
+	private static final File musicFile = new File(datapath+"music.wav");
+	private static Clip musicClip;
+	private static AudioInputStream musicInput;
+	private static Clip AudioClip;
+	private static AudioInputStream input;
 
 	private Board() {}
 
@@ -196,6 +206,8 @@ public class Board extends JPanel implements MouseListener {
 		String weaponString = null;
 		String roomString = null;
 		//setup theAnswer
+		Collections.shuffle(cards);
+		
 		for (Card card:cards) {
 			if(room && person && weapon) {break;}
 			if(card.getType() == Card.CardType.PERSON && !person) {
@@ -211,7 +223,7 @@ public class Board extends JPanel implements MouseListener {
 				roomString = card.getName();
 			}
 		}
-
+		
 		theAnswer = new Solution(personString, weaponString, roomString);
 
 		ArrayList<Card> tempCards = (ArrayList<Card>) cards.clone();
@@ -452,6 +464,29 @@ public class Board extends JPanel implements MouseListener {
 		return null;
 	}
 
+	public void makeAccusation() {
+		if(currPlayer == 0) {
+			MakeAccusation m = new MakeAccusation();
+		} else {
+			players.get(currPlayer).makeAccusation();
+		}
+	}
+
+	public void handleAccusation(Solution suggestion, Player accuser) {
+		if(suggestion.equals(theAnswer) && currPlayer == 0) {
+			youWin();
+		} else if (!suggestion.equals(theAnswer) && currPlayer == 0) {
+			youLose();
+		} else if (!suggestion.equals(theAnswer) && currPlayer != 0) {
+			players.remove(currPlayer);
+		} else {
+			youLose();
+		}
+		return;
+	}
+
+
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -493,7 +528,7 @@ public class Board extends JPanel implements MouseListener {
 					}
 				}
 			});
-			
+
 			for (BoardCell target:targets) {
 				target.paintTarget(g);
 			}
@@ -548,6 +583,10 @@ public class Board extends JPanel implements MouseListener {
 
 		//set the finished flag to false to prevent
 		finished = false;
+		
+		if(targets.isEmpty()) {
+			finished = true;
+		}
 
 		frame.updatePanels(theInstance);
 
@@ -594,63 +633,114 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	private void movePlayer(Player player, BoardCell cell) {
-		if (cell.isRoom()) {	
-			cell.setOccupied(false);
-			cell = cell.getRoom().getCenterCell();
-			player.col = cell.col;
-			player.row = cell.row;
+		if(currPlayer == 0) {
+			if (cell.isRoom()) {
+				cell.setOccupied(false);
+				cell = cell.getRoom().getCenterCell();
+				player.col = cell.col;
+				player.row = cell.row;
 
-			targets.clear();
-			finished = true;
+				targets.clear();
+				finished = true;
 
-			revalidate();
-			repaint();
+				revalidate();
+				repaint();
 
-			player.createSuggestion(cell.getRoom());
+				player.createSuggestion(cell.getRoom());
 
-			//you guess a player, find that player and add them to the room	
-			String personName = MakeSuggestion.getPerson().getName();
-			int i = -1;
-			for(Player p:players) {
-				i++;
-				if (p.getName().equals(personName)) {
-					break;
+				//you guess a player, find that player and add them to the room	
+				String personName = MakeSuggestion.getPerson().getName();
+				int i = -1;
+				for(Player p:players) {
+					i++;
+					if (p.getName().equals(personName)) {
+						break;
+					}
 				}
+				players.get(i).col = player.col;
+				players.get(i).row = player.row;
+				players.get(i).paintPlayer(getGraphics());
+
+				if (MakeSuggestion.returnCard != null) {
+					player.addSeenCard(MakeSuggestion.returnCard);
+
+					guess = MakeSuggestion.getPerson()+", "
+							+MakeSuggestion.getRoom()+", "
+							+MakeSuggestion.getWeapon();
+					result = MakeSuggestion.returnCard.getName();
+
+					frame.getControlPanel().setGuess(guess);
+					frame.getControlPanel().setGuessResult(result);
+
+					frame.updatePanels(getInstance());
+					return;
+				} else {
+					guess = MakeSuggestion.getPerson()+", "
+							+MakeSuggestion.getRoom()+", "
+							+MakeSuggestion.getWeapon();
+					result = "No one had the cards you guessed! Make an Accusation!";
+					
+					frame.getControlPanel().setGuess(guess);
+					frame.getControlPanel().setGuessResult(result);
+
+					frame.updatePanels(getInstance());
+				}
+				return;
+			} else {
+				grid[player.row][player.col].setOccupied(false);
+				player.col = cell.col;
+				player.row = cell.row;
+				cell.setOccupied(true);
+
+				targets.clear();
+				finished = true;
+
+				revalidate();
+				repaint();
+
+				return;
 			}
-			players.get(i).col = player.col;
-			players.get(i).row = player.row;
-			players.get(i).paintPlayer(getGraphics());
+		} else if (currPlayer != 0) {
+			if (cell.isRoom()) {
+				cell.setOccupied(false);
+				cell = cell.getRoom().getCenterCell();
+				player.col = cell.col;
+				player.row = cell.row;
+				finished = true;
 
+				revalidate();
+				repaint();
 
-			if (MakeSuggestion.returnCard != null) {
-				player.addSeenCard(MakeSuggestion.returnCard);
+				Solution compSuggestion = player.createSuggestion(cell.getRoom());
 
-				guess = MakeSuggestion.getPerson()+", "
-						+MakeSuggestion.getRoom()+", "
-						+MakeSuggestion.getWeapon();
-				result = MakeSuggestion.returnCard.getName();
+				//you guess a player, find that player and add them to the room	
+				String personName = compSuggestion.person;
+				int i = -1;
+				for(Player p:players) {
+					i++;
+					if (p.getName().equals(personName)) {
+						break;
+					}
+				}
+				players.get(i).col = player.col;
+				players.get(i).row = player.row;
+				players.get(i).paintPlayer(getGraphics());
+			}else {
+				grid[player.row][player.col].setOccupied(false);
+				player.col = cell.col;
+				player.row = cell.row;
+				cell.setOccupied(true);
 
-				frame.getControlPanel().setGuess(guess);
-				frame.getControlPanel().setGuessResult(result);
+				targets.clear();
+				finished = true;
 
-				frame.updatePanels(getInstance());
+				revalidate();
+				repaint();
+
 				return;
 			}
 			return;
 		}
-
-		grid[player.row][player.col].setOccupied(false);
-		player.col = cell.col;
-		player.row = cell.row;
-		cell.setOccupied(true);
-
-		targets.clear();
-		finished = true;
-
-		revalidate();
-		repaint();
-
-		return;
 	}
 
 	public static void main(String[] args) {
@@ -664,10 +754,72 @@ public class Board extends JPanel implements MouseListener {
 		frame.setTitle("Clue");
 		frame.setVisible(true);
 
+		System.out.println(theAnswer);
 
 		WelcomeScreen welcome = new WelcomeScreen();
 		welcome.setSize(200, 100);
 
+		playMusic();
+
+
+
+	}
+
+	public static void playMusic(){
+		try{
+			musicClip = AudioSystem.getClip();
+			AudioInputStream input = AudioSystem.getAudioInputStream(musicFile);
+			musicClip.open(input);
+			musicClip.loop(1);
+			musicClip.start();
+		} catch(Exception ex){
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
+	}
+	
+	public static void stopMusic(){
+		musicClip.stop();
+	}
+	
+	public static void playWin(){
+		File soundFile = new File(datapath+"winnin.wav");
+		try{
+			Clip clip = AudioSystem.getClip();
+			AudioInputStream input = AudioSystem.getAudioInputStream(soundFile);
+			clip.open(input);
+			clip.loop(1);
+			clip.start();
+		} catch(Exception ex){
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
+	}
+	
+	public static void playLose(){
+		File soundFile = new File(datapath+"losing.wav");
+		try{
+			Clip clip = AudioSystem.getClip();
+			AudioInputStream input = AudioSystem.getAudioInputStream(soundFile);
+			clip.open(input);
+			clip.loop(1);
+			clip.start();
+		} catch(Exception ex){
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
+	}
+
+	public void youWin() {
+		stopMusic();
+		playWin();
+		WinScreen w = new WinScreen();
+	}
+
+	public void youLose() {
+		stopMusic();
+		playLose();
+		LoseScreen l = new LoseScreen();
 	}
 
 	@Override

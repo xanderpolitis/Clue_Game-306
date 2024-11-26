@@ -1,2 +1,7 @@
-Used fonts
+Used custom fonts
 Changed background
+Background Music
+Custom Win Screen
+Custom Lose Screen 
+Custom Sound Effects for Win
+Custom Sound Effects for Lose

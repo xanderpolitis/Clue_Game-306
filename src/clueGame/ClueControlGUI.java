@@ -52,9 +52,7 @@ public class ClueControlGUI extends JPanel{
 		AccusationButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                Board.getInstance().next();
-            	//make a modal drop-down thing
-            	System.out.println("how dare you accuse me?");
+            	Board.getInstance().makeAccusation();
             }
         });
 	}	

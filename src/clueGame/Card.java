@@ -30,7 +30,7 @@ public String getName() {
      if (this == obj) return true;
      if (obj == null || getClass() != obj.getClass()) return false;
      Card card = (Card) obj;
-     return name.equals(card.name) && type == card.type;
+     return (name.equals(card.name) && type == card.type);
  }
 
  @Override
