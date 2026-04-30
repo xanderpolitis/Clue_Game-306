@@ -1,4 +1,4 @@
-This project was a fun experiacne on how to build a game with a fully functioning GUI in Java that didn't look like garbage! 
+This project was a fun experience on how to build a game with a fully functioning GUI in Java that didn't look like garbage! 
 I had a lot of fun and learned a lot about implementation of JUnitTests and Swing. This was the first large scale project, 
 so there were a lot of challanges keeping everything organized, but it turned out pretty great! 
 
